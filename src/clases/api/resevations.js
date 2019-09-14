@@ -1,19 +1,33 @@
 const axios = require('axios');
 
-export const RESERVATIONS_API_UR = "http://localhost:7353"
+export const RESERVATIONS_API_URL = "http://localhost:7353"
 
 class Persons {
-    static get(callback) {
-        let params = ReservationsApi.implodeParameters({});
+    static list(callback) {
+        return ReservationsApi.ConfiguredAxios({
+            method: 'get',
+            url: '/persons'
+        }).then(function (response) {
+            callback(response);
+        });
+    }
 
-        axios.get(RESERVATIONS_API_UR + '/persons?' + params)
-            .then(function (response) {
-                callback(response);
-            });
+    static store(data, callback) {
+        return ReservationsApi.ConfiguredAxios({
+            method: 'post',
+            url: '/persons',
+            data: data
+        }).then(function (response) {
+            callback(response);
+        });
     }
 }
 
-class ReservationsApi {
+export default class ReservationsApi {
+    static ConfiguredAxios = axios.create({
+        baseURL: RESERVATIONS_API_URL
+    });
+
     static get Persons() {
         return Persons;
     }
@@ -26,5 +40,3 @@ class ReservationsApi {
         return parameters.join('&');
     }
 }
-
-export default ReservationsApi;
