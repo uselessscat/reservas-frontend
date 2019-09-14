@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export const RESERVATIONS_API_URL = "http://localhost:7353"
+export const RESERVATIONS_API_URL = 'http://localhost:7353'
 
 class Persons {
     static list(callback) {
