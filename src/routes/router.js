@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch, BrowserRouter, Route } from 'react-router-dom';
+import { Switch, BrowserRouter, Route, Redirect } from 'react-router-dom';
 
 import DashboardLayout from '../layouts/dashboard-layout';
 
@@ -51,7 +51,10 @@ function Router() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path='/' component={Dashboard} />
+                <Route exact path='/'>
+                    <Redirect to='dashboard' />
+                </Route>
+
                 <Route path='/login' component={Login} />
 
                 <DashboardLayout
