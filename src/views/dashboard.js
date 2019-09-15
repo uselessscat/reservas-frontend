@@ -2,7 +2,7 @@ import React from 'react';
 
 import DashboardLayout from '../layouts/dashboard-layout';
 
-import { SidebarBrand, SidebarItem, SidebarSeparator } from '../components/dashboard/sidebar';
+import { Brand, LinkItem, Separator, HeaderItem } from '../components/dashboard/sidebar';
 import { TopbarSearch } from '../components/dashboard/topbar';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -17,12 +17,13 @@ library.add(faAddressBook, faTachometerAlt, faUsers);
 function SidebarContent() {
     return (
         <React.Fragment>
-            <SidebarBrand title='Reservations' icon={faAddressBook}>
+            <Brand title='Reservations' icon={faAddressBook}>
                 <div className='sidebar-brand-text mx-3'>Reservations</div>
-            </SidebarBrand>
-            <SidebarItem title='Dashboard' icon={faTachometerAlt} />
-            <SidebarSeparator />
-            <SidebarItem title='Personas' icon={faUsers} />
+            </Brand>
+            <LinkItem title='Dashboard' icon={faTachometerAlt} />
+            <Separator />
+            <HeaderItem title={'Mantenedores'} />
+            <LinkItem title='Personas' icon={faUsers} link="/personas"/>
         </React.Fragment>
     )
 }

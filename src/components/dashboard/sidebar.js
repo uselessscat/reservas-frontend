@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export function SidebarBrand(props) {
+export function Brand(props) {
     return (
         <Link className='sidebar-brand d-flex align-items-center justify-content-center' to={props.link || './'}>
             {props.icon !== undefined &&
@@ -14,21 +14,29 @@ export function SidebarBrand(props) {
     )
 }
 
-export function SidebarItem(props) {
+export function LinkItem(props) {
     return (
         <li className='nav-item'>
-            <a className='nav-link' href='index.html'>
+            <Link className='nav-link' to={props.link}>
                 {props.icon !== undefined &&
                     <FontAwesomeIcon icon={props.icon} fixedWidth />
                 }
                 <span>{props.title}</span>
-            </a>
+            </Link>
         </li>
     )
 }
 
-export function SidebarSeparator(props) {
-    return (<hr className='sidebar-divider my-0' />)
+export function HeaderItem(props) {
+    return (
+        <div className="sidebar-heading">
+            {props.title}
+        </div>
+    )
+}
+
+export function Separator(props) {
+    return (<hr className='sidebar-divider' />)
 }
 
 export function Sidebar(props) {
