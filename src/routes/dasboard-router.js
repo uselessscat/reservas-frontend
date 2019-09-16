@@ -1,15 +1,11 @@
 import React from 'react';
 
-import { Route } from 'react-router-dom';
-
 import DashboardLayout from '../layouts/dashboard-layout';
-
 import Sidebar from '../views/dashboard/sidebar';
 import Topbar from '../views/dashboard/topbar';
 import Footer from '../views/dashboard/footer';
 
-import Dashboard from '../views/dashboard/dashboard';
-import Personas from '../views/persons';
+import ModuleRoutes from '../routes/module-routes';
 
 export default function DashboardRouter() {
     return (
@@ -17,9 +13,10 @@ export default function DashboardRouter() {
             sidebar={<Sidebar />}
             topbar={<Topbar />}
             footer={<Footer />}>
+            
+            {/* Nested routes de modulos internos*/}
+            <ModuleRoutes />
 
-            <Route path='/dashboard' component={Dashboard} />
-            <Route path='/personas' component={Personas} />
         </DashboardLayout>
-    )
+    );
 }
