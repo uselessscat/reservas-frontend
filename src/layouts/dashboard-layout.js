@@ -1,6 +1,6 @@
 import React from 'react';
 import { Sidebar } from '../components/dashboard/sidebar';
-import { Topbar } from '../components/dashboard/topbar';
+import Topbar from '../components/dashboard/topbar';
 import Footer from '../components/dashboard/footer';
 
 export default class DashboardLayout extends React.Component {
