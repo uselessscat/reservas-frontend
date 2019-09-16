@@ -22,7 +22,7 @@ const DashboardRoutes = () => (
         <PrivateRoute exact path={routes.persons.path} component={Personas} />
         <PrivateRoute path={routes.personsNew.path} component={PersonsNew} />
 
-        <Route component={Error404} />
+        <PrivateRoute component={Error404} />
     </Switch >
 );
 

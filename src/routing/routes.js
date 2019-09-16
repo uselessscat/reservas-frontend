@@ -15,7 +15,7 @@ const routes = {
         path: '/personas'
     },
     personsNew: {
-        path: 'personas/nuevo'
+        path: '/personas/nuevo'
     }
 }
 
