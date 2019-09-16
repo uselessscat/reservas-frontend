@@ -4,6 +4,6 @@ import './css/sb-admin-2.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Router from './routes/router';
+import Router from './routing/router';
 
 ReactDOM.render(<Router></Router>, document.getElementById('root'));

@@ -39,7 +39,7 @@ export function Separator(props) {
     return (<hr className='sidebar-divider' />)
 }
 
-export function Sidebar(props) {
+export function SidebarList(props) {
     return (
         <ul className='navbar-nav bg-gradient-primary sidebar sidebar-dark accordion' id='accordionSidebar'>
             {props.children}
