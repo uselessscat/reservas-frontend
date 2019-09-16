@@ -1,7 +1,7 @@
 import React from 'react'
 import routes from './routes';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import PrivateRoute from '../components/auth/private-route';
 
 import DashboardLayout from '../layouts/dashboard-layout';
