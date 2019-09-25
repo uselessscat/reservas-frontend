@@ -3,7 +3,7 @@ import routes from '../../routing/routes';
 
 import { Link } from 'react-router-dom';
 
-import Table from '../../components/table/table';
+import Table from '../../components/simple-table/table';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -49,7 +49,7 @@ export default class Personas extends React.Component {
                     <h1 className='h3 mb-0 text-gray-800'>Personas</h1>
                     <Link to={routes.personsNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
                         <FontAwesomeIcon icon={faPlus} /> Ingresar persona
-                </Link>
+                    </Link>
                 </div>
                 <div className='card shadow mb-4'>
                     <div className='card-header py-3'>
