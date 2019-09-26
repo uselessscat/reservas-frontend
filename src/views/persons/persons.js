@@ -1,8 +1,7 @@
 import React from 'react';
-import routes from '../../routing/routes';
-
 import { Link } from 'react-router-dom';
 
+import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -68,7 +67,6 @@ export default class Personas extends React.Component {
                                 {personsBody}
                             </tbody>
                         </Table>
-
                     </div>
                 </div>
             </>
