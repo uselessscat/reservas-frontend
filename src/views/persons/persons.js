@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {connect} from "react-redux";
 
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
@@ -13,7 +14,7 @@ import {
 
 library.add(faPlus);
 
-export default class Personas extends React.Component {
+class Person extends React.Component {
     constructor(props) {
         super(props);
 
@@ -73,3 +74,15 @@ export default class Personas extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.data,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Person);
