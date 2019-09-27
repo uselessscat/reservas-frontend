@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
+import ReservationsApi from '../../clases/api/resevations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
     faPlus
 } from '@fortawesome/free-solid-svg-icons'
-import ReservationsApi from '../../clases/api/resevations';
 
 library.add(faPlus);
 
