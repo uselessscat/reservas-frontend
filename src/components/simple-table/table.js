@@ -1,5 +1,4 @@
 import React from 'react';
-import { Table as ReactstrapTable } from 'reactstrap';
 import EntryCountSelector from './entry-count-selector';
 import Paginator from './paginator';
 import EntryCount from './entry-count';
@@ -20,9 +19,9 @@ export default function Table(props) {
             </div>
             <div className='row'>
                 <div className='col-12'>
-                    <ReactstrapTable hover striped bordered>
+                    <table className="table table-hover table-striped table-bordered">
                         {props.children}
-                    </ReactstrapTable>
+                    </table>
                 </div>
             </div>
             <div className="row">
