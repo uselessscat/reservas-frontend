@@ -2,6 +2,7 @@ import React from 'react';
 import routes from '../../routing/routes';
 
 import { Link } from 'react-router-dom';
+import {connect} from "react-redux";
 
 import Table from '../../components/table/table';
 
@@ -14,7 +15,7 @@ import ReservationsApi from '../../clases/api/resevations';
 
 library.add(faPlus);
 
-export default class Personas extends React.Component {
+class Personas extends React.Component {
     constructor(props) {
         super(props);
 
@@ -75,3 +76,15 @@ export default class Personas extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        data: state.data,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Personas);
