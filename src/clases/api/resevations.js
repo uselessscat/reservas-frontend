@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export const RESERVATIONS_API_URL = 'http://18.216.221.56:8081/'
+export const RESERVATIONS_API_URL = process.env.API_URL
 
 class Persons {
     static list(callback) {
