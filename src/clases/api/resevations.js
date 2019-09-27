@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-export const RESERVATIONS_API_URL = process.env.API_URL
+export const RESERVATIONS_API_URL = process.env.REACT_APP_API_URL
 
 class Persons {
     static list(callback) {
