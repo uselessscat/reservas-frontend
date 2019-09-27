@@ -12,15 +12,15 @@ import Dashboard from '../views/dashboard/dashboard';
 import Sidebar from '../views/dashboard/sidebar';
 import Topbar from '../views/dashboard/topbar';
 import Footer from '../views/dashboard/footer';
-import Personas from '../views/persons/persons';
-import PersonsNew from '../views/persons/persons-new';
+import Person from '../views/persons/persons';
+import NewPerson from '../views/persons/persons-new';
 
 const DashboardRoutes = () => (
     <Switch>
         <PrivateRoute exact path={routes.root.path} component={Dashboard} />
         <PrivateRoute path={routes.dashboard.path} component={Dashboard} />
-        <PrivateRoute exact path={routes.persons.path} component={Personas} />
-        <PrivateRoute path={routes.personsNew.path} component={PersonsNew} />
+        <PrivateRoute exact path={routes.persons.path} component={Person} />
+        <PrivateRoute path={routes.personsNew.path} component={NewPerson} />
 
         <PrivateRoute component={Error404} />
     </Switch >

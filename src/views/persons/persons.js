@@ -14,7 +14,7 @@ import {
 
 library.add(faPlus);
 
-class Personas extends React.Component {
+class Person extends React.Component {
     constructor(props) {
         super(props);
 
@@ -85,4 +85,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Personas);
+export default connect(mapStateToProps, mapDispatchToProps)(Person);
