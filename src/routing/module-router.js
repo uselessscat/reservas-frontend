@@ -19,6 +19,7 @@ import BranchOffices from '../views/branch-offices/branch-offices';
 import NewBranchOffices from '../views/branch-offices/branch-offices-new';
 import Roles from '../views/roles/roles';
 import NewRoles from '../views/roles/roles-new';
+import Tables from '../views/table';
 
 const DashboardRoutes = () => (
     <Switch>
@@ -33,6 +34,8 @@ const DashboardRoutes = () => (
 
         <PrivateRoute exact path={routes.roles.path} component={Roles} />
         <PrivateRoute exact path={routes.rolesNew.path} component={NewRoles} />
+
+        <PrivateRoute exact path={"/test"} component={Tables} />
 
         <PrivateRoute component={Error404} />
     </Switch >
