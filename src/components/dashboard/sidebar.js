@@ -52,7 +52,9 @@ export class CollapsableNavItem extends React.Component {
                     <span>{this.props.title}</span>
                 </Link>
                 <Collapse in={this.state.collapse}>
-                    {this.props.children}
+                    <div>
+                        {this.props.children}
+                    </div>
                 </Collapse>
             </>
         );

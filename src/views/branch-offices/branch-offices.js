@@ -21,7 +21,6 @@ class BranchOffices extends React.Component {
 
     componentDidMount() {
         ReservationsApi.Persons.list(response => {
-            console.log(response);
             this.setState({
                 persons: response.data
             })
