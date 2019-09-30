@@ -24,7 +24,7 @@ class NewBranchOffices extends React.Component {
 
     componentDidMount() {
         if (this.state.id !== undefined) {
-            ReservationsApi.BranchOffice.get(this.state.id, response => {
+            ReservationsApi.BranchOffices.get(this.state.id, response => {
                 this.setState({
                     branchOffice: response.data
                 })
@@ -34,14 +34,14 @@ class NewBranchOffices extends React.Component {
 
     handleSubmit(event) {
         if (this.state.id === undefined) {
-            ReservationsApi.BranchOffice.store(this.state.branchOffice, response => {
+            ReservationsApi.BranchOffices.store(this.state.branchOffice, response => {
                 this.setState({
                     id: response.data.id,
                     branchOffice: response.data
                 })
             });
         } else {
-            ReservationsApi.BranchOffice.update(this.state.id, this.state.branchOffice, response => {
+            ReservationsApi.BranchOffices.update(this.state.id, this.state.branchOffice, response => {
                 this.setState({
                     id: response.data.id,
                     branchOffice: response.data

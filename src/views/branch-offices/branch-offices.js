@@ -55,7 +55,6 @@ class BranchOffices extends React.Component {
                                 <tr>
                                     <th>#</th>
                                     <th>Nombre</th>
-                                    <th>Email</th>
                                 </tr>
                             </thead>
                             <tbody>

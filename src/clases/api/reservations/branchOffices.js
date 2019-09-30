@@ -1,6 +1,6 @@
 import ReservationsApi from "./reservations";
 
-export default class BranchOffice {
+export default class BranchOffices {
     static list(callback) {
         return ReservationsApi.ConfiguredAxios({
             method: 'get',
