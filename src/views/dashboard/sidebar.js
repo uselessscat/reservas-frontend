@@ -23,7 +23,7 @@ export default function Sidebar() {
             </li>
             <li className='nav-item'>
                 <CollapsableNavItem title='Personas' icon={'users'}>
-                    <div class='bg-white py-2 collapse-inner rounded'>
+                    <div className='bg-white py-2 collapse-inner rounded'>
                         <CollapseLinkItem title='Roles' icon={'users'} link={routes.persons.path} />
                         <CollapseLinkItem title='Personas' icon={'users'} link={routes.persons.path} />
                     </div>

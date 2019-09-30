@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+
 import routes from '../../routing/routes';
 import PersonForm from './personForm';
 
-import ReservationsApi from '../../clases/api/resevations';
+import ReservationsApi from '../../clases/api/reservations/reservations';
 
 class NewPerson extends React.Component {
     constructor(props) {

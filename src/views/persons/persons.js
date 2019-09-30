@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
 
-import ReservationsApi from '../../clases/api/resevations';
+import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -35,7 +35,7 @@ class Persons extends React.Component {
                     <td>{element.email}</td>
                 </tr>
             )
-        }) : <tr><td colSpan="3">Loading…</td></tr>
+        }) : <tr><td colSpan='3'>Loading…</td></tr>
 
         return (
             <>

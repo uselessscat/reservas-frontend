@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
 
-import ReservationsApi from '../../clases/api/resevations';
+import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

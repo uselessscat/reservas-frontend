@@ -46,15 +46,15 @@ export class CollapsableNavItem extends React.Component {
 
     render() {
         return (
-            <li className='nav-item'>
-                <Link className='nav-link' href='#' onClick={this.toggle}>
+            <>
+                <Link className='nav-link' to='#' onClick={this.toggle}>
                     <FontAwesomeIcon icon={this.props.icon} />
                     <span>{this.props.title}</span>
                 </Link>
                 <Collapse isOpen={this.state.collapse}>
                     {this.props.children}
                 </Collapse>
-            </li>
+            </>
         );
     }
 }
