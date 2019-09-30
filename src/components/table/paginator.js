@@ -1,35 +1,43 @@
 import React from 'react';
 
-import { Button, ButtonToolbar, ToggleButtonGroup } from 'react-bootstrap';
+import { Button, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 
 export default class Paginator extends React.Component {
     render() {
         return (
-            <ButtonToolbar className="justify-content-end">
-                <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                    {this.getPaginationButtons()}
-                </ToggleButtonGroup>
+            <ButtonToolbar className='justify-content-end'>
+                {this.getPaginationButtons()}
             </ButtonToolbar>
         )
     }
 
     getPaginationButtons() {
-        if (this.props.pages === undefined || this.props.pages < 0) {
+        if (this.props.pages === undefined || this.props.pages < 1) {
             return this.getPaginationNotAvailableButton();
         } else {
-            return this.generatePageList().map((item, index) => {
-                return <Button key={index} variant="outline-primary">{item}</Button>
-            })
+            return this.generatePageList();
         }
     }
 
     getPaginationNotAvailableButton() {
-        return <Button variant="outline-primary" disabled>Paginación no disponible</Button>
+        return (
+            <ToggleButtonGroup type='radio' name='options' defaultValue={1}>
+                <Button variant='outline-primary' disabled>Paginación no disponible</Button>
+            </ToggleButtonGroup>
+        )
     }
 
     generatePageList() {
         const pages = this.props.pages;
 
-        return ['Anterior', ...Array(pages).fill(0).map((e, i) => i + 1), 'Siguiente']
+        return (
+            <ToggleButtonGroup type='radio' name='options' value={this.props.page} onChange={this.props.onChange}>
+                <Button variant='outline-primary' onClick={this.props.onPrev}>Anterior</Button>
+                {Array(this.props.pages).fill(0).map(
+                    (e, i) => <ToggleButton variant='outline-primary' key={i} value={i + 1}>{i + 1}</ToggleButton>
+                )}
+                <Button variant='outline-primary' onClick={this.props.onNext}>Siguiente</Button>
+            </ToggleButtonGroup>
+        )
     }
 }
