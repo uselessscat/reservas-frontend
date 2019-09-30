@@ -12,10 +12,13 @@ const routes = {
         path: '/dashboard'
     },
     persons: {
-        path: '/personas'
+        path: '/persons'
     },
     personsNew: {
-        path: '/personas/nuevo'
+        path: '/persons/new'
+    },
+    branchOffice: {
+        path: '/branch-office'
     }
 }
 

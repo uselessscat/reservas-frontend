@@ -1,27 +1,34 @@
 import React from 'react';
 import routes from '../../routing/routes';
 
-import { Brand, LinkItem, Separator, HeaderItem } from '../../components/dashboard/sidebar';
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import {
-    faAddressBook,
-    faTachometerAlt,
-    faUsers
-} from '@fortawesome/free-solid-svg-icons'
-
-library.add(faAddressBook, faTachometerAlt, faUsers);
+import { Brand, LinkItem, CollapsableNavItem, CollapseLinkItem, Separator, HeaderItem } from '../../components/dashboard/sidebar';
 
 export default function Sidebar() {
     return (
         <React.Fragment>
-            <Brand title='Reservations' icon={faAddressBook}>
+            <Brand title='Reservations' icon={'address-book'}>
                 <div className='sidebar-brand-text mx-3'>Reservations</div>
             </Brand>
-            <LinkItem title='Dashboard' icon={faTachometerAlt} link={routes.dashboard.path} />
+
+            <li className='nav-item'>
+                <LinkItem title='Dashboard' icon={'tachometer-alt'} link={routes.dashboard.path} />
+            </li>
+
             <Separator />
+
             <HeaderItem title={'Mantenedores'} />
-            <LinkItem title='Personas' icon={faUsers} link={routes.persons.path} />
+
+            <li className='nav-item'>
+                <LinkItem title='Sucursales' icon={'users'} link={routes.branchOffice.path} />
+            </li>
+            <li className='nav-item'>
+                <CollapsableNavItem title='Personas' icon={'users'}>
+                    <div class='bg-white py-2 collapse-inner rounded'>
+                        <CollapseLinkItem title='Roles' icon={'users'} link={routes.persons.path} />
+                        <CollapseLinkItem title='Personas' icon={'users'} link={routes.persons.path} />
+                    </div>
+                </CollapsableNavItem>
+            </li>
         </React.Fragment>
     )
 }

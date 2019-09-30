@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from "react-redux";
+import {connect} from "react-redux";
 
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
@@ -9,7 +9,8 @@ import ReservationsApi from '../../clases/api/resevations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class Persons extends React.Component {
+
+class BranchOffices extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,6 +21,7 @@ class Persons extends React.Component {
 
     componentDidMount() {
         ReservationsApi.Persons.list(response => {
+            console.log(response);
             this.setState({
                 persons: response.data
             })
@@ -40,9 +42,9 @@ class Persons extends React.Component {
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'>Personas</h1>
+                    <h1 className='h3 mb-0 text-gray-800'>Sucursales</h1>
                     <Link to={routes.personsNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                        <FontAwesomeIcon icon={'plus'} /> Ingresar persona
+                        <FontAwesomeIcon icon={'plus'} /> Ingresar sucursal
                     </Link>
                 </div>
                 <div className='card shadow mb-4'>
@@ -79,4 +81,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Persons);
+export default connect(mapStateToProps, mapDispatchToProps)(BranchOffices);
