@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Collapse } from 'reactstrap';
+import { Collapse } from 'react-bootstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -51,7 +51,7 @@ export class CollapsableNavItem extends React.Component {
                     <FontAwesomeIcon icon={this.props.icon} />
                     <span>{this.props.title}</span>
                 </Link>
-                <Collapse isOpen={this.state.collapse}>
+                <Collapse in={this.state.collapse}>
                     {this.props.children}
                 </Collapse>
             </>
