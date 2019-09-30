@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function PersonForm(props) {
+export default function PersonsForm(props) {
     return (
         <form onSubmit={props.onSubmit} >
             <div className='row form-group'>

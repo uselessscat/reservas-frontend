@@ -7,7 +7,7 @@ import PersonsForm from './persons-form';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
-class NewPerson extends React.Component {
+class NewPersons extends React.Component {
     constructor(props) {
         super(props);
 
@@ -101,4 +101,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPerson);
+export default connect(mapStateToProps, mapDispatchToProps)(NewPersons);
