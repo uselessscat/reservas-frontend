@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Table from '../components/table/table';
 import Paginator from '../components/table/paginator';
 
-class Tables extends React.Component {
+class PaginableTable extends React.Component {
     constructor(props) {
         super(props);
 
@@ -77,4 +77,4 @@ class Tables extends React.Component {
     }
 }
 
-export default Tables;
+export default PaginableTable;
