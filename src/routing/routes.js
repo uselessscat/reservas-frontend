@@ -22,6 +22,12 @@ const routes = {
     },
     branchOfficesNew: {
         path: '/branch-offices/new'
+    },
+    roles: {
+        path: '/roles'
+    },
+    rolesNew: {
+        path: '/roles/new'
     }
 }
 

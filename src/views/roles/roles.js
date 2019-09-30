@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
@@ -9,40 +9,39 @@ import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
-class BranchOffices extends React.Component {
+class Roles extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            branchOffice: []
+            roles: []
         }
     }
 
     componentDidMount() {
-        ReservationsApi.BranchOffices.list(response => {
+        ReservationsApi.Roles.list(response => {
             this.setState({
-                branchOffice: response.data
+                roles: response.data
             })
         });
     }
 
     render() {
-        const branchOfficesBody = (this.state.branchOffice.length > 0) ? this.state.branchOffice.map((element, index) => {
+        const rolesBody = (this.state.roles.length > 0) ? this.state.roles.map((element, index) => {
             return (
                 <tr key={index}>
                     <td>{element.id}</td>
                     <td>{element.name}</td>
                 </tr>
             )
-        }) : <tr><td colSpan="3">Loading…</td></tr>
+        }) : <tr><td colSpan='3'>Loading…</td></tr>
 
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'>Sucursales</h1>
-                    <Link to={routes.branchOfficesNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                        <FontAwesomeIcon icon={'plus'} /> Ingresar sucursal
+                    <h1 className='h3 mb-0 text-gray-800'>Roles</h1>
+                    <Link to={routes.rolesNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                        <FontAwesomeIcon icon={'plus'} /> Ingresar roles
                     </Link>
                 </div>
                 <div className='card shadow mb-4'>
@@ -58,7 +57,7 @@ class BranchOffices extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {branchOfficesBody}
+                                {rolesBody}
                             </tbody>
                         </Table>
                     </div>
@@ -78,4 +77,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BranchOffices);
+export default connect(mapStateToProps, mapDispatchToProps)(Roles);
