@@ -1,5 +1,6 @@
 import Persons from './persons';
 import BranchOffices from './branchOffices';
+import Roles from './roles';
 
 const axios = require('axios');
 
@@ -16,6 +17,10 @@ export default class ReservationsApi {
 
     static get BranchOffices() {
         return BranchOffices;
+    }
+
+    static get Roles() {
+        return Roles;
     }
 
     static implodeParameters(params) {

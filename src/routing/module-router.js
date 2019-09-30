@@ -18,6 +18,7 @@ import NewPersons from '../views/persons/persons-new';
 import BranchOffices from '../views/branch-offices/branch-offices';
 import NewBranchOffices from '../views/branch-offices/branch-offices-new';
 import Roles from '../views/roles/roles';
+import NewRoles from '../views/roles/roles-new';
 
 const DashboardRoutes = () => (
     <Switch>
@@ -28,9 +29,10 @@ const DashboardRoutes = () => (
         <PrivateRoute path={routes.personsNew.path} component={NewPersons} />
 
         <PrivateRoute exact path={routes.branchOffices.path} component={BranchOffices} />
-        <PrivateRoute path={routes.branchOffices.path} component={NewBranchOffices} />
+        <PrivateRoute path={routes.branchOfficesNew.path} component={NewBranchOffices} />
 
         <PrivateRoute exact path={routes.roles.path} component={Roles} />
+        <PrivateRoute exact path={routes.rolesNew.path} component={NewRoles} />
 
         <PrivateRoute component={Error404} />
     </Switch >

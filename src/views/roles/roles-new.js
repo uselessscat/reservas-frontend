@@ -1,14 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import routes from '../../routing/routes';
+import RolesForm from './roles-form';
+
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
-export default class RoleForm extends React.Component {
+class NewRoles extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             id: props.id,
             role: {
-                name: ''
+                name: '',
+                last_name: '',
+                email: ''
             }
         };
 
@@ -62,20 +70,35 @@ export default class RoleForm extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div className='row form-group'>
-                    <div className='col-4'>
-                        <label htmlFor='name'>Nombre</label>
-                        <input type='name' className='form-control' id='name' name='name'
-                            value={this.state.role.name} onChange={this.handleChange} />
+            <>
+                <div className='d-sm-flex align-items-center justify-content-between mb-4'>
+                    <h1 className='h3 mb-0 text-gray-800'>Ingresar rol</h1>
+                    <Link to={routes.roles.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                        Volver
+                    </Link>
+                </div>
+                <div className='card shadow mb-4'>
+                    <div className='card-header py-3'>
+                        <h6 className='m-0 font-weight-bold text-primary'>Datos del rol</h6>
+                    </div>
+                    <div className='card-body'>
+                        <RolesForm role={this.state.role} onChange={this.handleChange} onSubmit={this.handleSubmit} />
                     </div>
                 </div>
-                <div className='row form-group'>
-                    <div className='col-12'>
-                        <input className='btn btn-primary' type='submit' value='Guardar' />
-                    </div>
-                </div>
-            </form>
+            </>
         )
     }
 }
+
+
+const mapStateToProps = state => {
+    return {
+        data: state.data,
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewRoles);
