@@ -12,15 +12,21 @@ import Dashboard from '../views/dashboard/dashboard';
 import Sidebar from '../views/dashboard/sidebar';
 import Topbar from '../views/dashboard/topbar';
 import Footer from '../views/dashboard/footer';
-import Person from '../views/persons/persons';
-import NewPerson from '../views/persons/persons-new';
+import Persons from '../views/persons/persons';
+import NewPersons from '../views/persons/persons-new';
+import BranchOffices from '../views/branch-offices/branch-offices';
+import NewBranchOffices from '../views/branch-offices/branch-offices-new';
 
 const DashboardRoutes = () => (
     <Switch>
         <PrivateRoute exact path={routes.root.path} component={Dashboard} />
         <PrivateRoute path={routes.dashboard.path} component={Dashboard} />
-        <PrivateRoute exact path={routes.persons.path} component={Person} />
-        <PrivateRoute path={routes.personsNew.path} component={NewPerson} />
+
+        <PrivateRoute exact path={routes.persons.path} component={Persons} />
+        <PrivateRoute path={routes.personsNew.path} component={NewPersons} />
+
+        <PrivateRoute exact path={routes.branchOffices.path} component={BranchOffices} />
+        <PrivateRoute path={routes.branchOffices.path} component={NewBranchOffices} />
 
         <PrivateRoute component={Error404} />
     </Switch >

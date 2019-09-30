@@ -3,20 +3,18 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
-import PersonsForm from './persons-form';
+import BranchOfficeForm from './branch-offices-form';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
-class NewPerson extends React.Component {
+class NewBranchOffices extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             id: props.id,
-            person: {
+            branchOffice: {
                 name: '',
-                last_name: '',
-                email: ''
             }
         };
 
@@ -26,9 +24,9 @@ class NewPerson extends React.Component {
 
     componentDidMount() {
         if (this.state.id !== undefined) {
-            ReservationsApi.Persons.get(this.state.id, response => {
+            ReservationsApi.BranchOffice.get(this.state.id, response => {
                 this.setState({
-                    person: response.data
+                    branchOffice: response.data
                 })
             });
         }
@@ -36,17 +34,17 @@ class NewPerson extends React.Component {
 
     handleSubmit(event) {
         if (this.state.id === undefined) {
-            ReservationsApi.Persons.store(this.state.person, response => {
+            ReservationsApi.BranchOffice.store(this.state.branchOffice, response => {
                 this.setState({
                     id: response.data.id,
-                    person: response.data
+                    branchOffice: response.data
                 })
             });
         } else {
-            ReservationsApi.Persons.update(this.state.id, this.state.person, response => {
+            ReservationsApi.BranchOffice.update(this.state.id, this.state.branchOffice, response => {
                 this.setState({
                     id: response.data.id,
-                    person: response.data
+                    branchOffice: response.data
                 })
             });
         }
@@ -60,8 +58,8 @@ class NewPerson extends React.Component {
 
         this.setState(prevState => {
             return {
-                person: {
-                    ...prevState.person,
+                branchOffice: {
+                    ...prevState.branchOffice,
                     [target]: value
                 }
             };
@@ -72,17 +70,17 @@ class NewPerson extends React.Component {
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'>Ingresar persona</h1>
-                    <Link to={routes.persons.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                    <h1 className='h3 mb-0 text-gray-800'>Ingresar sucursal</h1>
+                    <Link to={routes.branchOffices.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
                         Volver
                     </Link>
                 </div>
                 <div className='card shadow mb-4'>
                     <div className='card-header py-3'>
-                        <h6 className='m-0 font-weight-bold text-primary'>Datos de la persona</h6>
+                        <h6 className='m-0 font-weight-bold text-primary'>Datos de la sucursal</h6>
                     </div>
                     <div className='card-body'>
-                        <PersonsForm person={this.state.person} onChange={this.handleChange} onSubmit={this.handleSubmit} />
+                        <BranchOfficeForm branchOffice={this.state.branchOffice} onChange={this.handleChange} onSubmit={this.handleSubmit} />
                     </div>
                 </div>
             </>
@@ -101,4 +99,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPerson);
+export default connect(mapStateToProps, mapDispatchToProps)(NewBranchOffices);

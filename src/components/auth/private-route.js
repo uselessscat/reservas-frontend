@@ -3,13 +3,13 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import routes from '../../routing/routes';
 
-export default function PrivateRoute({ component: Component, ...rest }) {
+export default function PrivateRoute(props) {
     // TODO: user verification
     let user = 1;
 
-    const authComponentResolver = props => {
-        const authorizedComponent = <Component {...props} />
-        const redirectToAuthComponent = <Redirect to={{ pathname: routes.login.path, state: { from: props.location } }} />
+    const authComponentResolver = innerProps => {
+        const authorizedComponent = <props.Component {...innerProps} />
+        const redirectToAuthComponent = <Redirect to={{ pathname: routes.login.path, state: { from: innerProps.location } }} />
 
         if (user !== undefined) {
             return authorizedComponent;
@@ -19,6 +19,6 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     }
 
     return (
-        <Route {...rest} render={authComponentResolver} />
+        <Route {...props} render={authComponentResolver} />
     );
 }

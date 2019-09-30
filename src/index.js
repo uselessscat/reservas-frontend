@@ -6,4 +6,7 @@ import ReactDOM from 'react-dom';
 
 import Router from './routing/router';
 
+// this file add all necesary icons
+import './views/fa-icons';
+
 ReactDOM.render(<Router></Router>, document.getElementById('root'));

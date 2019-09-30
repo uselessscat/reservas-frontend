@@ -1,8 +1,6 @@
-const axios = require('axios');
+import ReservationsApi from "./reservations";
 
-export const RESERVATIONS_API_URL = process.env.REACT_APP_API_URL
-
-class Persons {
+export default class Persons {
     static list(callback) {
         return ReservationsApi.ConfiguredAxios({
             method: 'get',
@@ -39,23 +37,5 @@ class Persons {
         }).then(function (response) {
             callback(response);
         });
-    }
-}
-
-export default class ReservationsApi {
-    static ConfiguredAxios = axios.create({
-        baseURL: RESERVATIONS_API_URL
-    });
-
-    static get Persons() {
-        return Persons;
-    }
-
-    static implodeParameters(params) {
-        let parameters = Object.keys(params).map(key => {
-            return `${key}=${params[key]}`;
-        })
-
-        return parameters.join('&');
     }
 }

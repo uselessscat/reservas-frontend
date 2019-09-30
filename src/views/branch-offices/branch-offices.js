@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import {connect} from "react-redux";
 
 import routes from '../../routing/routes';
 import Table from '../../components/simple-table/table';
@@ -9,40 +9,40 @@ import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-class Persons extends React.Component {
+
+class BranchOffices extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            persons: []
+            branchOffice: []
         }
     }
 
     componentDidMount() {
-        ReservationsApi.Persons.list(response => {
+        ReservationsApi.BranchOffices.list(response => {
             this.setState({
-                persons: response.data
+                branchOffice: response.data
             })
         });
     }
 
     render() {
-        const personsBody = (this.state.persons.length > 0) ? this.state.persons.map((element, index) => {
+        const branchOfficesBody = (this.state.branchOffice.length > 0) ? this.state.branchOffice.map((element, index) => {
             return (
                 <tr key={index}>
                     <td>{element.id}</td>
-                    <td>{element.name + ' ' + element.last_name}</td>
-                    <td>{element.email}</td>
+                    <td>{element.name}</td>
                 </tr>
             )
-        }) : <tr><td colSpan='3'>Loading…</td></tr>
+        }) : <tr><td colSpan="3">Loading…</td></tr>
 
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'>Personas</h1>
-                    <Link to={routes.personsNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                        <FontAwesomeIcon icon={'plus'} /> Ingresar persona
+                    <h1 className='h3 mb-0 text-gray-800'>Sucursales</h1>
+                    <Link to={routes.branchOfficesNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
+                        <FontAwesomeIcon icon={'plus'} /> Ingresar sucursal
                     </Link>
                 </div>
                 <div className='card shadow mb-4'>
@@ -59,7 +59,7 @@ class Persons extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {personsBody}
+                                {branchOfficesBody}
                             </tbody>
                         </Table>
                     </div>
@@ -79,4 +79,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Persons);
+export default connect(mapStateToProps, mapDispatchToProps)(BranchOffices);
