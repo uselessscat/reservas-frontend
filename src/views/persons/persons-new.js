@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
-import PersonForm from './personForm';
+import PersonsForm from './persons-form';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
@@ -82,7 +82,7 @@ class NewPerson extends React.Component {
                         <h6 className='m-0 font-weight-bold text-primary'>Datos de la persona</h6>
                     </div>
                     <div className='card-body'>
-                        <PersonForm person={this.state.person} onChange={this.handleChange} onSubmit={this.handleSubmit} />
+                        <PersonsForm person={this.state.person} onChange={this.handleChange} onSubmit={this.handleSubmit} />
                     </div>
                 </div>
             </>
