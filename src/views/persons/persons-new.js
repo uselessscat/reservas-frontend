@@ -1,18 +1,72 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {connect} from "react-redux";
+import { connect } from 'react-redux';
 import routes from '../../routing/routes';
 import PersonForm from './personForm';
+
+import ReservationsApi from '../../clases/api/resevations';
 
 class NewPerson extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            persons: []
+            id: props.id,
+            person: {
+                name: '',
+                last_name: '',
+                email: ''
+            }
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.state.id !== undefined) {
+            ReservationsApi.Persons.get(this.state.id, response => {
+                this.setState({
+                    person: response.data
+                })
+            });
         }
     }
-    
+
+    handleSubmit(event) {
+        if (this.state.id === undefined) {
+            ReservationsApi.Persons.store(this.state.person, response => {
+                this.setState({
+                    id: response.data.id,
+                    person: response.data
+                })
+            });
+        } else {
+            ReservationsApi.Persons.update(this.state.id, this.state.person, response => {
+                this.setState({
+                    id: response.data.id,
+                    person: response.data
+                })
+            });
+        }
+
+        event.preventDefault();
+    }
+
+    handleChange(event) {
+        const target = event.target.name;
+        const value = event.target.value;
+
+        this.setState(prevState => {
+            return {
+                person: {
+                    ...prevState.person,
+                    [target]: value
+                }
+            };
+        });
+    }
+
     render() {
         return (
             <>
@@ -27,12 +81,12 @@ class NewPerson extends React.Component {
                         <h6 className='m-0 font-weight-bold text-primary'>Datos de la persona</h6>
                     </div>
                     <div className='card-body'>
-                        <PersonForm />
+                        <PersonForm person={this.state.person} onChange={this.handleChange} onSubmit={this.handleSubmit} />
                     </div>
                 </div>
             </>
         )
-     }
+    }
 }
 
 
