@@ -17,8 +17,11 @@ const routes = {
     personsNew: {
         path: '/persons/new'
     },
-    branchOffice: {
-        path: '/branch-office'
+    branchOffices: {
+        path: '/branch-offices'
+    },
+    branchOfficesNew: {
+        path: '/branch-offices/new'
     }
 }
 

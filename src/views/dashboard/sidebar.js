@@ -19,7 +19,7 @@ export default function Sidebar() {
             <HeaderItem title={'Mantenedores'} />
 
             <li className='nav-item'>
-                <LinkItem title='Sucursales' icon={'users'} link={routes.branchOffice.path} />
+                <LinkItem title='Sucursales' icon={'users'} link={routes.branchOffices.path} />
             </li>
             <li className='nav-item'>
                 <CollapsableNavItem title='Personas' icon={'users'}>
