@@ -19,8 +19,6 @@ class PaginableTable extends React.Component {
 
     onNext() {
         this.setState((prevState) => {
-            console.log(prevState);
-
             return { page: prevState.page + 1 }
         });
     }
@@ -54,7 +52,7 @@ class PaginableTable extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-12 col-md-5">
-                        <EntryCount from={1} to={10} total={100} />
+                        <EntryCount from={this.props.page * this.props.pageSize} to={1} total={this.props.elements} />
                     </div>
                     <div className="col-sm-12 col-md-7">
                         <Paginator
