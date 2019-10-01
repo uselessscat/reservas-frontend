@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function PaginationInfo({ from = 0, to = 0, total = 0 }) {
+export default function PaginationInfo({ itemFrom = 0, itemTo = 0, items = 0 }) {
     return (
         <div>
-            Mostrando del {from} al {to} de {total} resultados
+            Mostrando del {itemFrom} al {itemTo} de {items} resultados
         </div>
     )
 }

@@ -50,7 +50,7 @@ class BranchOffices extends React.Component {
                         <h6 className='m-0 font-weight-bold text-primary'>Registros</h6>
                     </div>
                     <div className='card-body'>
-                        <Table striped bordered hover>
+                        <Table>
                             <thead>
                                 <tr>
                                     <th>#</th>

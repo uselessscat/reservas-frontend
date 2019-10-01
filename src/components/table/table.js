@@ -6,7 +6,7 @@ export default function Table(props) {
         <div>
             <div className='row'>
                 <div className='col-12'>
-                    <TableBootstrap hover stripe bordered>
+                    <TableBootstrap hover striped bordered>
                         {props.children}
                     </TableBootstrap>
                 </div>
