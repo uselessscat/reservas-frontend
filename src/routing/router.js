@@ -1,5 +1,5 @@
 import React from 'react';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import store from "../redux/store/index";
 import routes from './routes';
 
@@ -10,17 +10,17 @@ import Login from '../views/login';
 
 export default function Router() {
     return (
-    <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                {/* routas publicas */}
-                <Route exact path={routes.login.path} component={Login} />
+        <Provider store={store}>
+            <BrowserRouter>
+                <Switch>
+                    {/* routas publicas */}
+                    <Route exact path={routes.login.path} component={Login} />
 
-                {/* Rutas privadas */}
-                <ModuleRoutes />
-            </Switch>
-        </BrowserRouter>
-    </Provider>
+                    {/* Rutas privadas */}
+                    <ModuleRoutes />
+                </Switch>
+            </BrowserRouter>
+        </Provider>
     );
 }
 

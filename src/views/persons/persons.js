@@ -18,11 +18,14 @@ class Persons extends React.Component {
             pagination: {
                 size: 10,
                 page: 1,
-                pages: 10,
+                pages: 5,
             }
         }
 
+        this.bindFunctions();
+    }
 
+    bindFunctions() {
         this.onPagePrev = this.onPagePrev.bind(this);
         this.onPageNext = this.onPageNext.bind(this);
         this.onChangePage = this.onChangePage.bind(this);
@@ -36,7 +39,6 @@ class Persons extends React.Component {
             })
         });
     }
-
 
     render() {
         const personsBody = this.getPersonsTableBody();
@@ -55,7 +57,7 @@ class Persons extends React.Component {
 
         const pagination = {
             page: this.state.pagination.page,
-            pages: 10,
+            pages: this.state.pagination.pages,
             onChange: this.onChangePage,
             onPrev: this.onPagePrev,
             onNext: this.onPageNext,
