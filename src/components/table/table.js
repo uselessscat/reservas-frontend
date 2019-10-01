@@ -1,7 +1,7 @@
 import React from 'react';
-import EntryCountSelector from './entry-count-selector';
+import EntryCountSelector from './pagination-size';
 import Paginator from './paginator';
-import EntryCount from './entry-count';
+import EntryCount from './pagination-info';
 
 export default function Table(props) {
     return (

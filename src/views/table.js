@@ -8,7 +8,7 @@ class Tables extends React.Component {
 
         this.state = {
             elements: 1234,
-            page: 3,
+            page: 1,
             pages: 12,
             pageSize: 20
         }
@@ -26,6 +26,25 @@ class Tables extends React.Component {
     }
 
     render() {
+        const pagSize = {
+            pageSize: this.state.pageSize,
+            pageSizes: [5, 10, 20, 100],
+        }
+
+        const pagInfo = {
+            from: 10,
+            to: 19,
+            total: 100,
+        }
+
+        const pagination = {
+            page: this.state.page,
+            pages: this.state.pages,
+            elements: this.state.elements,
+            onChangePage: this.onChangePage,
+            onChangePageSize: this.onChangePageSize,
+        }
+
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
@@ -37,14 +56,9 @@ class Tables extends React.Component {
                     </div>
                     <div className='card-body'>
                         <PaginableTable striped bordered hover
-                            elements={this.state.elements}
-                            page={this.state.page}
-                            pages={this.state.pages}
-                            pageSize={this.state.pageSize}
-                            pageSizes={[5, 10, 25, 100]}
-                            onChangePage={this.onChangePage}
-                            onChangePageSize={this.onChangePageSize}>
-
+                            paginationSize={pagSize}
+                            paginationInfo={pagInfo}
+                            paginator={pagination}>
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -53,7 +67,11 @@ class Tables extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr></tr>
+                                <tr>
+                                    <td>asd</td>
+                                    <td>asd2</td>
+                                    <td>asd3</td>
+                                </tr>
                             </tbody>
                         </PaginableTable>
                     </div>
