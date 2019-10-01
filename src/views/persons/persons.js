@@ -47,8 +47,9 @@ class Persons extends React.Component {
         }
 
         const pagInfo = {
-            from: 10,
-            to: this.state.persons.length + this.state.pagination.page * this.state.pagination.size,
+            // TODO: cargar estos datos desde api
+            from: (this.state.pagination.page - 1) * this.state.pagination.size,
+            to: this.state.persons.length + (this.state.pagination.page - 1) * this.state.pagination.size,
             total: 100,
         }
 
@@ -109,13 +110,23 @@ class Persons extends React.Component {
     onChangePaginationSize(event) {
         const paginationSize = event.target.value;
 
-        this.setState({ pagination: { size: paginationSize } });
+        this.setState(prevState => {
+            return {
+                pagination: {
+                    ...prevState.pagination,
+                    size: paginationSize
+                }
+            }
+        });
     }
 
     onChangePage(index) {
-        this.setState({
-            pagination: {
-                page: index,
+        this.setState(prevState => {
+            return {
+                pagination: {
+                    ...prevState.pagination,
+                    page: index,
+                }
             }
         });
     }
@@ -123,7 +134,10 @@ class Persons extends React.Component {
     onPagePrev(event) {
         this.setState(prevState => {
             return {
-                pagination: { page: prevState.pagination.page - 1 }
+                pagination: {
+                    ...prevState.pagination,
+                    page: prevState.pagination.page - 1
+                }
             }
         });
     }
@@ -131,7 +145,10 @@ class Persons extends React.Component {
     onPageNext(event) {
         this.setState(prevState => {
             return {
-                pagination: { page: prevState.pagination.page + 1 }
+                pagination: {
+                    ...prevState.pagination,
+                    page: prevState.pagination.page + 1
+                }
             }
         });
     }
