@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
-import PaginableTable from '../../components/table/paginable-table';
+import Table from '../../components/table/searchable-paginable-table';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
@@ -19,6 +19,9 @@ class Persons extends React.Component {
                 size: 10,
                 page: 1,
                 pages: 5,
+            },
+            search: {
+                value: '',
             }
         }
 
@@ -29,10 +32,17 @@ class Persons extends React.Component {
         this.onPagePrev = this.onPagePrev.bind(this);
         this.onPageNext = this.onPageNext.bind(this);
         this.onChangePage = this.onChangePage.bind(this);
+        this.onSearchChange = this.onSearchChange.bind(this);
         this.onChangePaginationSize = this.onChangePaginationSize.bind(this);
     }
 
     componentDidMount() {
+        this.fireDataUpdate();
+    }
+
+    fireDataUpdate() {
+        console.log('Updating data...');
+
         ReservationsApi.Persons.list(response => {
             this.setState({
                 persons: response.data
@@ -63,6 +73,11 @@ class Persons extends React.Component {
             onNext: this.onPageNext,
         }
 
+        const search = {
+            value: this.state.search.value,
+            onChange: this.onSearchChange
+        }
+
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
@@ -76,10 +91,7 @@ class Persons extends React.Component {
                         <h6 className='m-0 font-weight-bold text-primary'>Registros</h6>
                     </div>
                     <div className='card-body'>
-                        <PaginableTable striped bordered hover
-                            paginationSize={pagSize}
-                            paginationInfo={pagInfo}
-                            paginator={pagination}>
+                        <Table paginationSize={pagSize} paginationInfo={pagInfo} paginator={pagination} search={search}>
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -90,7 +102,7 @@ class Persons extends React.Component {
                             <tbody>
                                 {personsBody}
                             </tbody>
-                        </PaginableTable>
+                        </Table>
                     </div>
                 </div >
             </>
@@ -120,6 +132,8 @@ class Persons extends React.Component {
                 }
             }
         });
+
+        this.fireDataUpdate();
     }
 
     onChangePage(index) {
@@ -131,6 +145,8 @@ class Persons extends React.Component {
                 }
             }
         });
+
+        this.fireDataUpdate();
     }
 
     onPagePrev(event) {
@@ -142,6 +158,8 @@ class Persons extends React.Component {
                 }
             }
         });
+
+        this.fireDataUpdate();
     }
 
     onPageNext(event) {
@@ -153,6 +171,22 @@ class Persons extends React.Component {
                 }
             }
         });
+
+        this.fireDataUpdate();
+    }
+
+    onSearchChange(event) {
+        const value = event.target.value;
+
+        this.setState(prevState => {
+            return {
+                search: {
+                    value: value
+                }
+            }
+        });
+
+        this.fireDataUpdate();
     }
 }
 

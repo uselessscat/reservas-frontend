@@ -8,13 +8,13 @@ export default function PaginationSize({ pageSizes = [], pageSize, onChange }) {
 
     return (
         <label className='d-inline-flex'>
-            <span className='mr-2'>Show </span>
+            <span className='mr-2'>Mostrar </span>
             <Form.Control as="select" className='custom-select custom-select-sm form-control form-control-sm'
                 value={pageSize}
                 onChange={onChange}>
                 {optionsComponents}
             </Form.Control>
-            <span className='ml-2'>entries</span>
+            <span className='ml-2'>resultados</span>
         </label>
     )
 }
