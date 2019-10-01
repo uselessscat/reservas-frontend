@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
-import Table from '../../components/simple-table/table';
+import PaginableTable from '../../components/table/paginable-table';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
@@ -14,8 +14,22 @@ class Persons extends React.Component {
         super(props);
 
         this.state = {
-            persons: []
+            persons: [],
+            pagination: {
+                size: 10,
+                page: 1,
+                pages: 5,
+            }
         }
+
+        this.bindFunctions();
+    }
+
+    bindFunctions() {
+        this.onPagePrev = this.onPagePrev.bind(this);
+        this.onPageNext = this.onPageNext.bind(this);
+        this.onChangePage = this.onChangePage.bind(this);
+        this.onChangePaginationSize = this.onChangePaginationSize.bind(this);
     }
 
     componentDidMount() {
@@ -27,15 +41,27 @@ class Persons extends React.Component {
     }
 
     render() {
-        const personsBody = (this.state.persons.length > 0) ? this.state.persons.map((element, index) => {
-            return (
-                <tr key={index}>
-                    <td>{element.id}</td>
-                    <td>{element.name + ' ' + element.last_name}</td>
-                    <td>{element.email}</td>
-                </tr>
-            )
-        }) : <tr><td colSpan='3'>Loading…</td></tr>
+        const personsBody = this.getPersonsTableBody();
+        const pagSize = {
+            pageSize: this.state.pagination.size,
+            pageSizes: [5, 10, 20, 100],
+            onChange: this.onChangePaginationSize
+        }
+
+        const pagInfo = {
+            // TODO: cargar estos datos desde api
+            from: (this.state.pagination.page - 1) * this.state.pagination.size,
+            to: this.state.persons.length + (this.state.pagination.page - 1) * this.state.pagination.size,
+            total: 100,
+        }
+
+        const pagination = {
+            page: this.state.pagination.page,
+            pages: this.state.pagination.pages,
+            onChange: this.onChangePage,
+            onPrev: this.onPagePrev,
+            onNext: this.onPageNext,
+        }
 
         return (
             <>
@@ -50,7 +76,10 @@ class Persons extends React.Component {
                         <h6 className='m-0 font-weight-bold text-primary'>Registros</h6>
                     </div>
                     <div className='card-body'>
-                        <Table striped bordered hover>
+                        <PaginableTable striped bordered hover
+                            paginationSize={pagSize}
+                            paginationInfo={pagInfo}
+                            paginator={pagination}>
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -61,11 +90,69 @@ class Persons extends React.Component {
                             <tbody>
                                 {personsBody}
                             </tbody>
-                        </Table>
+                        </PaginableTable>
                     </div>
-                </div>
+                </div >
             </>
         );
+    }
+
+    getPersonsTableBody() {
+        return (this.state.persons.length > 0) ? this.state.persons.map((element, index) => {
+            return (
+                <tr key={index}>
+                    <td>{element.id}</td>
+                    <td>{element.name + ' ' + element.last_name}</td>
+                    <td>{element.email}</td>
+                </tr>
+            )
+        }) : <tr><td colSpan='3'>Loading…</td></tr>
+    }
+
+    onChangePaginationSize(event) {
+        const paginationSize = event.target.value;
+
+        this.setState(prevState => {
+            return {
+                pagination: {
+                    ...prevState.pagination,
+                    size: paginationSize
+                }
+            }
+        });
+    }
+
+    onChangePage(index) {
+        this.setState(prevState => {
+            return {
+                pagination: {
+                    ...prevState.pagination,
+                    page: index,
+                }
+            }
+        });
+    }
+
+    onPagePrev(event) {
+        this.setState(prevState => {
+            return {
+                pagination: {
+                    ...prevState.pagination,
+                    page: prevState.pagination.page - 1
+                }
+            }
+        });
+    }
+
+    onPageNext(event) {
+        this.setState(prevState => {
+            return {
+                pagination: {
+                    ...prevState.pagination,
+                    page: prevState.pagination.page + 1
+                }
+            }
+        });
     }
 }
 

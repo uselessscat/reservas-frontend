@@ -1,5 +1,5 @@
 export default {
-    notification:{
+    notification: {
         SHOW_ERROR: "SHOW_ERROR",
         SHOW_SUCCESS: "SHOW_SUCCESS",
         SHOW_INFO: "SHOW_INFO",
