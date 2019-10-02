@@ -11,6 +11,7 @@ export default function SearchablePaginableTable({ paginationInfo, events = {}, 
         <div>
             <div className='row '>
                 <div className='col-sm-12 col-md-6'>
+
                     <PaginationSize onChangePageSize={events.onChangePageSize} {...paginationInfo} />
                 </div>
                 <div className='col-sm-12 col-md-6 text-right'>

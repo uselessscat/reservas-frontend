@@ -59,6 +59,11 @@ class Persons extends React.Component {
             onChangeSearch: this.onSearchChange
         }
 
+        const search = {
+            value: this.state.search.value,
+            onChange: this.onSearchChange
+        }
+
         return (
             <>
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
