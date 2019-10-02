@@ -6,17 +6,18 @@ import PaginationSize from './pagination-size';
 import Paginator from './paginator';
 import PaginationInfo from './pagination-info';
 
-export default function SearchablePaginableTable({ paginationSize, paginationInfo, paginator, search, children }) {
+export default function SearchablePaginableTable({ paginationInfo, events = {}, filter, children }) {
     return (
         <div>
             <div className='row '>
                 <div className='col-sm-12 col-md-6'>
-                    <PaginationSize {...paginationSize} />
+
+                    <PaginationSize onChangePageSize={events.onChangePageSize} {...paginationInfo} />
                 </div>
                 <div className='col-sm-12 col-md-6 text-right'>
                     <label className='d-inline-flex'>
                         <span className='mr-2'>Search:</span>
-                        <Form.Control as='input' type='search' className='form-control form-control-sm' {...search} />
+                        <Form.Control as='input' type='search' className='form-control form-control-sm' value={filter} onChange={events.onChangeSearch} />
                     </label>
                 </div>
             </div>
@@ -32,7 +33,7 @@ export default function SearchablePaginableTable({ paginationSize, paginationInf
                     <PaginationInfo {...paginationInfo} />
                 </div>
                 <div className='col-sm-12 col-md-7'>
-                    <Paginator {...paginator} />
+                    <Paginator onChangePage={events.onChangePage} {...paginationInfo} />
                 </div>
             </div>
         </div>

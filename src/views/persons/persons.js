@@ -9,32 +9,20 @@ import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+const columns = ['#', 'Nombre', 'Email'];
+
 class Persons extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            persons: [],
-            pagination: {
-                size: 10,
-                page: 1,
-                pages: 5,
-            },
-            search: {
-                value: '',
-            }
+    state = {
+        persons: [],
+        pagination: {
+            size: 10,
+            page: 1,
+            pages: 5,
+        },
+        search: {
+            value: '',
         }
-
-        this.bindFunctions();
-    }
-
-    bindFunctions() {
-        this.onPagePrev = this.onPagePrev.bind(this);
-        this.onPageNext = this.onPageNext.bind(this);
-        this.onChangePage = this.onChangePage.bind(this);
-        this.onSearchChange = this.onSearchChange.bind(this);
-        this.onChangePaginationSize = this.onChangePaginationSize.bind(this);
-    }
+    };
 
     componentDidMount() {
         this.fireDataUpdate();
@@ -52,25 +40,23 @@ class Persons extends React.Component {
 
     render() {
         const personsBody = this.getPersonsTableBody();
-        const pagSize = {
-            pageSize: this.state.pagination.size,
-            pageSizes: [5, 10, 20, 100],
-            onChange: this.onChangePaginationSize
-        }
 
-        const pagInfo = {
+        const filter = this.state.search.value;
+        const paginationInfo = {
             // TODO: cargar estos datos desde api
-            from: (this.state.pagination.page - 1) * this.state.pagination.size,
-            to: this.state.persons.length + (this.state.pagination.page - 1) * this.state.pagination.size,
-            total: 100,
-        }
-
-        const pagination = {
+            itemFrom: (this.state.pagination.page - 1) * this.state.pagination.size,
+            itemTo: this.state.persons.length + (this.state.pagination.page - 1) * this.state.pagination.size,
+            items: 100,
             page: this.state.pagination.page,
             pages: this.state.pagination.pages,
-            onChange: this.onChangePage,
-            onPrev: this.onPagePrev,
-            onNext: this.onPageNext,
+            pageSize: this.state.pagination.size,
+            pageSizes: [5, 10, 20, 100],
+        }
+
+        const events = {
+            onChangePageSize: this.onChangePageSize,
+            onChangePage: this.onChangePage,
+            onChangeSearch: this.onSearchChange
         }
 
         const search = {
@@ -91,12 +77,10 @@ class Persons extends React.Component {
                         <h6 className='m-0 font-weight-bold text-primary'>Registros</h6>
                     </div>
                     <div className='card-body'>
-                        <Table paginationSize={pagSize} paginationInfo={pagInfo} paginator={pagination} search={search}>
+                        <Table paginationInfo={paginationInfo} filter={filter} events={events}>
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
+                                    {columns.map((column, key) => <th key={key}>{column}</th>)}
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,7 +105,7 @@ class Persons extends React.Component {
         }) : <tr><td colSpan='3'>Loading…</td></tr>
     }
 
-    onChangePaginationSize(event) {
+    onChangePageSize = (event) => {
         const paginationSize = event.target.value;
 
         this.setState(prevState => {
@@ -136,7 +120,7 @@ class Persons extends React.Component {
         this.fireDataUpdate();
     }
 
-    onChangePage(index) {
+    onChangePage = (index) => {
         this.setState(prevState => {
             return {
                 pagination: {
@@ -149,33 +133,7 @@ class Persons extends React.Component {
         this.fireDataUpdate();
     }
 
-    onPagePrev(event) {
-        this.setState(prevState => {
-            return {
-                pagination: {
-                    ...prevState.pagination,
-                    page: prevState.pagination.page - 1
-                }
-            }
-        });
-
-        this.fireDataUpdate();
-    }
-
-    onPageNext(event) {
-        this.setState(prevState => {
-            return {
-                pagination: {
-                    ...prevState.pagination,
-                    page: prevState.pagination.page + 1
-                }
-            }
-        });
-
-        this.fireDataUpdate();
-    }
-
-    onSearchChange(event) {
+    onSearchChange = (event) => {
         const value = event.target.value;
 
         this.setState(prevState => {
