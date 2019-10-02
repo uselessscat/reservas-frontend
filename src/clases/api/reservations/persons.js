@@ -1,10 +1,11 @@
 import ReservationsApi from "./reservations";
 
 export default class Persons {
-    static list(callback) {
+    static list(params, callback) {
         return ReservationsApi.ConfiguredAxios({
             method: 'get',
-            url: '/persons'
+            url: '/persons',
+            params: params
         }).then(function (response) {
             callback(response);
         });

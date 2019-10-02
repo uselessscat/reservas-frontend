@@ -18,6 +18,9 @@ class Persons extends React.Component {
             size: 10,
             page: 1,
             pages: 5,
+            from: 0,
+            to: 0,
+            items: 0
         },
         search: {
             value: '',
@@ -31,9 +34,24 @@ class Persons extends React.Component {
     fireDataUpdate() {
         console.log('Updating data...');
 
-        ReservationsApi.Persons.list(response => {
+        const params = {
+            page: this.state.pagination.page,
+            per_page: this.state.pagination.size
+        }
+
+        ReservationsApi.Persons.list(params, response => {
+            console.log(response);
+            const data = response.data;
+
             this.setState({
-                persons: response.data
+                persons: data.data,
+                pagination: {
+                    page: data.current_page,
+                    from: data.from,
+                    to: data.to,
+                    pages: data.last_page,
+                    items: data.total
+                }
             })
         });
     }
@@ -44,9 +62,9 @@ class Persons extends React.Component {
         const filter = this.state.search.value;
         const paginationInfo = {
             // TODO: cargar estos datos desde api
-            itemFrom: (this.state.pagination.page - 1) * this.state.pagination.size,
-            itemTo: this.state.persons.length + (this.state.pagination.page - 1) * this.state.pagination.size,
-            items: 100,
+            itemFrom: this.state.pagination.from,
+            itemTo: this.state.pagination.to,
+            items: this.state.pagination.items,
             page: this.state.pagination.page,
             pages: this.state.pagination.pages,
             pageSize: this.state.pagination.size,
@@ -115,9 +133,9 @@ class Persons extends React.Component {
                     size: paginationSize
                 }
             }
+        }, () => {
+            this.fireDataUpdate();
         });
-
-        this.fireDataUpdate();
     }
 
     onChangePage = (index) => {
@@ -128,9 +146,9 @@ class Persons extends React.Component {
                     page: index,
                 }
             }
+        }, () => {
+            this.fireDataUpdate();
         });
-
-        this.fireDataUpdate();
     }
 
     onSearchChange = (event) => {
@@ -142,9 +160,9 @@ class Persons extends React.Component {
                     value: value
                 }
             }
+        }, () => {
+            this.fireDataUpdate();
         });
-
-        this.fireDataUpdate();
     }
 }
 
