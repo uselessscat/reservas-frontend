@@ -17,7 +17,7 @@ class Persons extends React.Component {
         pagination: {
             size: 10,
             page: 1,
-            pages: 5,
+            pages: 1,
             from: 0,
             to: 0,
             items: 0
