@@ -1,13 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import routes from '../../routing/routes';
-import Table from '../../components/table/searchable-paginable-table';
-
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import BasicCrud from '../../components/crud/basic-crud';
 
 const columns = ['#', 'Nombre', 'Email'];
 
@@ -57,11 +54,7 @@ class Persons extends React.Component {
     }
 
     render() {
-        const personsBody = this.getPersonsTableBody();
-
-        const filter = this.state.search.value;
         const paginationInfo = {
-            // TODO: cargar estos datos desde api
             itemFrom: this.state.pagination.from,
             itemTo: this.state.pagination.to,
             items: this.state.pagination.items,
@@ -83,44 +76,19 @@ class Persons extends React.Component {
         }
 
         return (
-            <>
-                <div className='d-sm-flex align-items-center justify-content-between mb-4'>
-                    <h1 className='h3 mb-0 text-gray-800'>Personas</h1>
-                    <Link to={routes.personsNew.path} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                        <FontAwesomeIcon icon={'plus'} /> Ingresar persona
-                    </Link>
-                </div>
-                <div className='card shadow mb-4'>
-                    <div className='card-header py-3'>
-                        <h6 className='m-0 font-weight-bold text-primary'>Registros</h6>
-                    </div>
-                    <div className='card-body'>
-                        <Table paginationInfo={paginationInfo} filter={filter} events={events}>
-                            <thead>
-                                <tr>
-                                    {columns.map((column, key) => <th key={key}>{column}</th>)}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {personsBody}
-                            </tbody>
-                        </Table>
-                    </div>
-                </div >
-            </>
+            <BasicCrud
+                title='Personas'
+                newTitle='Ingresar persona'
+                newLink={routes.personsNew.path}
+                table={{
+                    paginationInfo: paginationInfo,
+                    events: events,
+                    search: search,
+                    columns: columns,
+                    data: this.state.persons
+                }}
+            />
         );
-    }
-
-    getPersonsTableBody() {
-        return (this.state.persons.length > 0) ? this.state.persons.map((element, index) => {
-            return (
-                <tr key={index}>
-                    <td>{element.id}</td>
-                    <td>{element.name + ' ' + element.last_name}</td>
-                    <td>{element.email}</td>
-                </tr>
-            )
-        }) : <tr><td colSpan='3'>Loading…</td></tr>
     }
 
     onChangePageSize = (event) => {
