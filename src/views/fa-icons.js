@@ -4,7 +4,9 @@ import {
     faTachometerAlt,
     faUsers,
     faCog,
-    faPlus
+    faPlus,
+    faTrash,
+    faPencilAlt,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -12,5 +14,7 @@ library.add(
     faTachometerAlt,
     faUsers,
     faCog,
-    faPlus
+    faPlus,
+    faTrash,
+    faPencilAlt
 );

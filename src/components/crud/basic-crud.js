@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Table from '../../components/table/searchable-paginable-table';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class BasicCrud extends React.Component {
     render() {
@@ -14,7 +15,7 @@ class BasicCrud extends React.Component {
                 <div className='d-sm-flex align-items-center justify-content-between mb-4'>
                     <h1 className='h3 mb-0 text-gray-800'>{this.props.title}</h1>
                     <Link to={this.props.newLink} className='d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm'>
-                        <FontAwesomeIcon icon={'plus'} /> {this.props.newTitle}
+                        <FontAwesomeIcon icon='plus' /> {this.props.newTitle}
                     </Link>
                 </div>
                 <div className='card shadow mb-4'>
@@ -47,6 +48,16 @@ class BasicCrud extends React.Component {
                     <td>{element.id}</td>
                     <td>{element.name + ' ' + element.last_name}</td>
                     <td>{element.email}</td>
+                    <td>
+                        <ButtonGroup>
+                            <Button variant="outline-primary">
+                                <FontAwesomeIcon icon='pencil-alt' />
+                            </Button>
+                            <Button variant="outline-danger">
+                                <FontAwesomeIcon icon='trash' />
+                            </Button>
+                        </ButtonGroup>
+                    </td>
                 </tr>
             )
         }) : <tr><td colSpan='3'>Loading…</td></tr>

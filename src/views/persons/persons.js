@@ -6,7 +6,7 @@ import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import BasicCrud from '../../components/crud/basic-crud';
 
-const columns = ['#', 'Nombre', 'Email'];
+const columns = ['#', 'Nombre', 'Email', 'Accciones'];
 
 class Persons extends React.Component {
     state = {
