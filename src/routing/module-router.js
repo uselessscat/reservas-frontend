@@ -13,7 +13,7 @@ import Sidebar from '../views/dashboard/sidebar';
 import Topbar from '../views/dashboard/topbar';
 import Footer from '../views/dashboard/footer';
 
-import Persons from '../views/persons/persons';
+import PersonsList from '../views/persons/persons-list';
 import NewPersons from '../views/persons/persons-new';
 import BranchOffices from '../views/branch-offices/branch-offices';
 import NewBranchOffices from '../views/branch-offices/branch-offices-new';
@@ -25,7 +25,7 @@ const DashboardRoutes = () => (
         <PrivateRoute exact path={routes.root.path} component={Dashboard} />
         <PrivateRoute path={routes.dashboard.path} component={Dashboard} />
 
-        <PrivateRoute exact path={routes.persons.path} component={Persons} />
+        <PrivateRoute exact path={routes.persons.path} component={PersonsList} />
         <PrivateRoute path={routes.personsNew.path} component={NewPersons} />
 
         <PrivateRoute exact path={routes.branchOffices.path} component={BranchOffices} />

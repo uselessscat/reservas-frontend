@@ -46,7 +46,7 @@ const columns = [
     }
 ];
 
-class Persons extends React.Component {
+class PersonsList extends React.Component {
     state = {
         persons: [],
         pagination: {
@@ -201,4 +201,4 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Persons);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonsList);
