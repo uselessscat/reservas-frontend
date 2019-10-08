@@ -1,12 +1,50 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { ButtonGroup, Button } from 'react-bootstrap';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import routes from '../../routing/routes';
 import ReservationsApi from '../../clases/api/reservations/reservations';
 
 import BasicCrud from '../../components/crud/basic-crud';
 
-const columns = ['#', 'Nombre', 'Email', 'Accciones'];
+const sortCaret = (order, column) => {
+    return (
+        <>
+            <FontAwesomeIcon icon='arrow-up' className={order == 'desc' ? 'text-dark' : ''} />
+            <FontAwesomeIcon icon='arrow-down' className={order == 'asc' ? 'text-dark' : ''} />
+        </>
+    )
+};
+
+const columns = [
+    {
+        dataField: 'id',
+        text: '#',
+        sort: true,
+        sortCaret
+    },
+    {
+        dataField: 'name',
+        text: 'Nombre',
+        sort: true,
+        sortCaret
+    },
+    {
+        dataField: 'email',
+        text: 'Email',
+        sort: true,
+        sortCaret
+    },
+    {
+        dataField: 'actions',
+        text: 'Accciones',
+        sort: true,
+        sortCaret
+    }
+];
 
 class Persons extends React.Component {
     state = {
@@ -39,6 +77,21 @@ class Persons extends React.Component {
         ReservationsApi.Persons.list(params, response => {
             console.log(response);
             const data = response.data;
+
+            data.data.forEach(element => {
+                element.actions = (
+                    <>
+                    <ButtonGroup>
+                        <Button variant="outline-primary">
+                            <FontAwesomeIcon icon='pencil-alt' />
+                        </Button>
+                        <Button variant="outline-danger">
+                            <FontAwesomeIcon icon='trash' />
+                        </Button>
+                    </ButtonGroup>
+                    </>
+                )
+            });
 
             this.setState({
                 persons: data.data,
@@ -81,14 +134,18 @@ class Persons extends React.Component {
                 newTitle='Ingresar persona'
                 newLink={routes.personsNew.path}
                 table={{
-                    paginationInfo: paginationInfo,
-                    events: events,
-                    search: search,
+                    keyField: 'id',
+                    data: this.state.persons,
                     columns: columns,
-                    data: this.state.persons
+                    pagination: paginationFactory(),
+                    onTableChange: this.onTableChange
                 }}
             />
         );
+    }
+
+    onTableChange = (type, { sortField, sortOrder, data }) => {
+        console.log(type, sortField, sortOrder, data);
     }
 
     onChangePageSize = (event) => {
