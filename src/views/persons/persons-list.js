@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { ButtonGroup, Button } from 'react-bootstrap';
 import paginationFactory from 'react-bootstrap-table2-paginator';
+import filterFactory, { textFilter, Comparator } from 'react-bootstrap-table2-filter';
+import cellEditFactory from 'react-bootstrap-table2-editor';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import routes from '../../routing/routes';
@@ -22,21 +24,30 @@ const sortCaret = (order, column) => {
 const columns = [
     {
         dataField: 'id',
-        text: '#',
+        text: 'ID',
         sort: true,
-        sortCaret
+        sortCaret,
+        filter: textFilter({
+            defaultValue: ''
+        }),
     },
     {
         dataField: 'name',
         text: 'Nombre',
         sort: true,
-        sortCaret
+        sortCaret,
+        filter: textFilter({
+            defaultValue: ''
+        }),
     },
     {
         dataField: 'email',
         text: 'Email',
         sort: true,
-        sortCaret
+        sortCaret,
+        filter: textFilter({
+            defaultValue: ''
+        }),
     },
     {
         dataField: 'actions',
@@ -46,22 +57,29 @@ const columns = [
     }
 ];
 
-class PersonsList extends React.Component {
-    state = {
-        persons: [],
-        pagination: {
-            size: 10,
-            page: 1,
-            pages: 1,
-            from: 0,
-            to: 0,
-            items: 0
-        },
-        search: {
-            value: '',
-        }
-    };
+const defaultSorted = [{
+  dataField: 'id',
+  order: 'asc'
+}];
 
+const cellEditProps = {
+  mode: 'click'
+};
+
+class PersonsList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          pagination: {
+              per_page:25
+          },
+          data: []
+        };
+        
+        this.handleTableChange = this.handleTableChange.bind(this);
+
+    }
+    
     componentDidMount() {
         this.fireDataUpdate();
     }
@@ -69,12 +87,7 @@ class PersonsList extends React.Component {
     fireDataUpdate() {
         console.log('Updating data...');
 
-        const params = {
-            page: this.state.pagination.page,
-            per_page: this.state.pagination.size
-        }
-
-        ReservationsApi.Persons.list(params, response => {
+        ReservationsApi.Persons.list(this.state.pagination, response => {
             console.log(response);
             const data = response.data;
 
@@ -94,40 +107,20 @@ class PersonsList extends React.Component {
             });
 
             this.setState({
-                persons: data.data,
+                data: data.data,
                 pagination: {
                     page: data.current_page,
                     from: data.from,
                     to: data.to,
                     pages: data.last_page,
-                    items: data.total
+                    total: data.total
                 }
             })
         });
     }
 
     render() {
-        const paginationInfo = {
-            itemFrom: this.state.pagination.from,
-            itemTo: this.state.pagination.to,
-            items: this.state.pagination.items,
-            page: this.state.pagination.page,
-            pages: this.state.pagination.pages,
-            pageSize: this.state.pagination.size,
-            pageSizes: [5, 10, 20, 100],
-        }
-
-        const events = {
-            onChangePageSize: this.onChangePageSize,
-            onChangePage: this.onChangePage,
-            onChangeSearch: this.onSearchChange
-        }
-
-        const search = {
-            value: this.state.search.value,
-            onChange: this.onSearchChange
-        }
-
+       
         return (
             <BasicCrud
                 title='Personas'
@@ -135,59 +128,84 @@ class PersonsList extends React.Component {
                 newLink={routes.personsNew.path}
                 table={{
                     keyField: 'id',
-                    data: this.state.persons,
+                    data: this.state.data,
+                    defaultSorted: defaultSorted,
                     columns: columns,
-                    pagination: paginationFactory(),
-                    onTableChange: this.onTableChange
+                    cellEdit:cellEditFactory(cellEditProps),
+                    filter:filterFactory(),
+                    pagination: paginationFactory({ 
+                        page: this.state.pagination.page,
+                        sizePerPage: this.state.pagination.per_page, 
+                        totalSize: this.state.pagination.total, 
+                    }),
+                    onTableChange: this.handleTableChange
                 }}
             />
         );
     }
 
-    onTableChange = (type, { sortField, sortOrder, data }) => {
-        console.log(type, sortField, sortOrder, data);
-    }
-
-    onChangePageSize = (event) => {
-        const paginationSize = event.target.value;
-
-        this.setState(prevState => {
-            return {
-                pagination: {
-                    ...prevState.pagination,
-                    size: paginationSize
-                }
-            }
-        }, () => {
-            this.fireDataUpdate();
+    handleTableChange = (type, { page, sizePerPage, filters, sortField, sortOrder, cellEdit }) => {
+    const currentIndex = (page - 1) * sizePerPage;
+      // Handle cell editing
+      if (type === 'cellEdit') {
+          //TODO: CALL TO API - UPDATE
+        const { rowId, dataField, newValue } = cellEdit;
+        this.state.data = this.state.data.map((row) => {
+          if (row.id === rowId) {
+            const newRow = { ...row };
+            newRow[dataField] = newValue;
+            return newRow;
+          }
+          return row;
         });
-    }
+      }
+      let result = this.state.data;
 
-    onChangePage = (index) => {
-        this.setState(prevState => {
-            return {
-                pagination: {
-                    ...prevState.pagination,
-                    page: index,
-                }
+      // Handle column filters
+      result = result.filter((row) => {
+          
+        let valid = true;
+        for (const dataField in filters) {
+          const { filterVal, filterType, comparator } = filters[dataField];
+
+          if (filterType === 'TEXT') {
+            if (comparator === Comparator.LIKE) {
+              valid = row[dataField].toString().indexOf(filterVal) > -1;
+            } else {
+              valid = row[dataField] === filterVal;
             }
-        }, () => {
-            this.fireDataUpdate();
+          }
+          if (!valid) break;
+        }
+        return valid;
+      });
+      // Handle column sort
+      if (sortOrder === 'asc') {
+        result = result.sort((a, b) => {
+          if (a[sortField] > b[sortField]) {
+            return 1;
+          } else if (b[sortField] > a[sortField]) {
+            return -1;
+          }
+          return 0;
         });
-    }
-
-    onSearchChange = (event) => {
-        const value = event.target.value;
-
-        this.setState(prevState => {
-            return {
-                search: {
-                    value: value
-                }
-            }
-        }, () => {
-            this.fireDataUpdate();
+      } else {
+        result = result.sort((a, b) => {
+          if (a[sortField] > b[sortField]) {
+            return -1;
+          } else if (b[sortField] > a[sortField]) {
+            return 1;
+          }
+          return 0;
         });
+      }
+      this.setState(() => ({
+        page,
+        data: result.slice(currentIndex, currentIndex + sizePerPage),
+        totalSize: result.length,
+        sizePerPage
+      }));
+
     }
 }
 
