@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import BootstrapTable from 'react-bootstrap-table-next';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class BasicCrud extends React.Component {
