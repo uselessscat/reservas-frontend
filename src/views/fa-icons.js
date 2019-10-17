@@ -7,6 +7,8 @@ import {
     faPlus,
     faTrash,
     faPencilAlt,
+    faArrowUp,
+    faArrowDown,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -16,5 +18,7 @@ library.add(
     faCog,
     faPlus,
     faTrash,
-    faPencilAlt
+    faPencilAlt,
+    faArrowUp,
+    faArrowDown
 );
