@@ -1,13 +1,49 @@
 import React from 'react';
-import { SidebarList } from '../components/dashboard/sidebar';
-import Topbar from '../components/dashboard/topbar';
-import Footer from '../components/dashboard/footer';
+import PropTypes from 'prop-types';
+import { AppBar, Toolbar, IconButton, Icon, Typography, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 
-export default class DashboardLayout extends React.Component {
+const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    menuButton: {
+        marginRight: 'theme.spacing(2)',
+    },
+    title: {
+        flexGrow: 1,
+    },
+});
+
+class DashboardLayout extends React.Component {
     render() {
+        const { classes } = this.props;
+
         return (
-            <div id="wrapper">
-                <SidebarList>
+            <div>
+                <AppBar position="static">
+                    <Toolbar>
+                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                            <Icon>menu</Icon>
+                        </IconButton>
+                        <Typography variant="h6" className={classes.title}>News</Typography>
+                        <Button color="inherit">Login</Button>
+                    </Toolbar>
+                </AppBar>
+                {this.props.children}
+            </div>
+        )
+    }
+}
+
+DashboardLayout.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(DashboardLayout)
+/*
+
+<SidebarList>
                     {<this.props.sidebarContent />}
                 </SidebarList>
                 <div id="content-wrapper" className="d-flex flex-column">
@@ -23,7 +59,4 @@ export default class DashboardLayout extends React.Component {
                         {<this.props.footerContent />}
                     </Footer>
                 </div>
-            </div>
-        )
-    }
-}
+*/

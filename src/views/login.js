@@ -1,50 +1,111 @@
 import React from 'react';
-import LoginLayout from '../layouts/login-layout';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+    Avatar,
+    Button,
+    CssBaseline,
+    TextField,
+    FormControlLabel,
+    Checkbox,
+    Link,
+    Paper,
+    Box,
+    Grid,
+    Typography,
+    Icon
+} from '@material-ui/core';
 
-class Login extends React.Component {
-    render() {
-        return (
-            <LoginLayout>
-                <div className='row'>
-                    <div className='col-lg-6 d-none d-lg-block bg-login-image'></div>
-                    <div className='col-lg-6'>
-                        <div className='p-5'>
-                            <div className='text-center'>
-                                <h1 className='h4 text-gray-900 mb-4'>Bienvenido!</h1>
-                            </div>
-                            <form className='user'>
-                                <div className='form-group'>
-                                    <input type='email' className='form-control form-control-user' id='exampleInputEmail' aria-describedby='emailHelp' placeholder='Correo electrónico' />
-                                </div>
-                                <div className='form-group'>
-                                    <input type='password' className='form-control form-control-user' id='exampleInputPassword' placeholder='Contraseña' />
-                                </div>
-                                <div className='form-group'>
-                                    <div className='custom-control custom-checkbox small'>
-                                        <input type='checkbox' className='custom-control-input' id='customCheck' />
-                                        <label className='custom-control-label' htmlFor='customCheck'>Recuerdame</label>
-                                    </div>
-                                </div>
-                                <a href='index.html' className='btn btn-primary btn-user btn-block'>Ingresar</a>
-                                <hr />
-                                <a href='index.html' className='btn btn-google btn-user btn-block'>
-                                    <i className='fab fa-google fa-fw'></i> Ingresar con Google</a>
-                                <a href='index.html' className='btn btn-facebook btn-user btn-block'>
-                                    <i className='fab fa-facebook-f fa-fw'></i> Ingresar con Facebook</a>
-                            </form>
-                            <hr />
-                            <div className='text-center'>
-                                <a className='small' href='forgot-password.html'>Olvidé mi contraseña?</a>
-                            </div>
-                            <div className='text-center'>
-                                <a className='small' href='register.html'>Crear cuenta</a>
-                            </div>
-                        </div>
-                    </div>
+import Copyright from '../components/dashboard/copyright';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        height: '100vh',
+    },
+    image: {
+        backgroundImage: 'url(https://source.unsplash.com/random)',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    },
+    paper: {
+        margin: theme.spacing(8, 4),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
+
+function Login() {
+    const classes = useStyles();
+
+    return (
+        <Grid container component='main' className={classes.root}>
+            <CssBaseline />
+            <Grid item xs={false} sm={4} md={7} className={classes.image} />
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <Icon>lock</Icon>
+                    </Avatar>
+                    <Typography component='h1' variant='h5'>Bienvenido</Typography>
+                    <form className={classes.form} noValidate>
+                        <TextField
+                            variant='outlined'
+                            margin='normal'
+                            required
+                            fullWidth
+                            id='email'
+                            label='Correo electrónico'
+                            name='email'
+                            autoComplete='email'
+                            autoFocus />
+                        <TextField
+                            variant='outlined'
+                            margin='normal'
+                            required
+                            fullWidth
+                            name='password'
+                            label='Contraseña'
+                            type='password'
+                            id='password'
+                            autoComplete='current-password' />
+                        <FormControlLabel
+                            control={<Checkbox value='remember' color='primary' />}
+                            label='Recuerdame' />
+                        <Button
+                            type='submit'
+                            fullWidth
+                            variant='contained'
+                            color='primary'
+                            className={classes.submit}>Ingresar</Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href='#' variant='body2'>Olvidé mi contraseña</Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href='#' variant='body2'>{'Registrarse'}</Link>
+                            </Grid>
+                        </Grid>
+                        <Box mt={5}>
+                            <Copyright />
+                        </Box>
+                    </form>
                 </div>
-            </LoginLayout>
-        )
-    }
+            </Grid>
+        </Grid>
+    );
+
 }
 
 export default Login;
