@@ -3,7 +3,10 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Icon, Typography, Button, Drawer, Container, List, Divider, Grid, Badge, ListItem, ListItemIcon, ListItemText, ListSubheader, CssBaseline } from '@material-ui/core';
+import {
+    AppBar, Toolbar, IconButton, Icon, Typography, Button, Drawer,
+    Container, List, Divider, Grid, Badge, ListItem, ListItemIcon, ListSubheader, CssBaseline, ListItemText, Paper
+} from '@material-ui/core';
 
 import Copyright from '../components/dashboard/copyright';
 
@@ -87,25 +90,27 @@ const styles = theme => ({
     },
 });
 
+
 class DashboardLayout extends React.Component {
     constructor(props) {
         super(props);
-
+        
         this.state = {
             open: true
         };
     }
-
+    
     handleDrawerOpen = () => {
         this.setState({ open: true });
     };
-
+    
     handleDrawerClose = () => {
         this.setState({ open: false });
     };
-
+    
     render() {
         const { classes } = this.props;
+        const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
         return (
             <div>
@@ -203,7 +208,11 @@ class DashboardLayout extends React.Component {
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
                         <Grid container spacing={3}>
-                            {this.props.children}
+                            <Grid item xs={12} md={8} lg={9}>
+                                <Paper className={fixedHeightPaper}>
+                                    {this.props.children}
+                                </Paper>
+                            </Grid>
                         </Grid>
                     </Container>
                     <Copyright />
