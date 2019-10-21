@@ -1,82 +1,119 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Collapse } from 'react-bootstrap';
+import clsx from 'clsx';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Drawer, IconButton, Divider, List, ListItem, ListItemIcon, Icon, ListItemText, ListSubheader } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
-export function Brand(props) {
+const drawerWidth = 240;
+
+const useStyles = makeStyles(theme => ({
+    drawerPaper: {
+        position: 'relative',
+        whiteSpace: 'nowrap',
+        width: drawerWidth,
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    drawerPaperClose: {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(9),
+        },
+    },
+    toolbarIcon: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: '0 8px',
+        ...theme.mixins.toolbar,
+    },
+}));
+
+export default function Sidebar(props) {
+    const classes = useStyles();
+
     return (
-        <Link className='sidebar-brand d-flex align-items-center justify-content-center' to={props.link || './'}>
-            {props.icon !== undefined &&
-                <FontAwesomeIcon icon={props.icon} />
-            }
-            {props.children}
-        </Link>
-    )
-}
-
-export function LinkItem(props) {
-    return (
-        <Link className='nav-link' to={props.link}>
-            {props.icon !== undefined &&
-                <FontAwesomeIcon icon={props.icon} fixedWidth />
-            }
-            <span>{props.title}</span>
-        </Link>
-    )
-}
-
-export function CollapseLinkItem(props) {
-    return (
-        <Link className='collapse-item' to={props.link}>{props.title}</Link>
+        <Drawer variant='permanent'
+            classes={{
+                paper: clsx(classes.drawerPaper, !props.open && classes.drawerPaperClose),
+            }}
+            open={props.open}>
+            <div className={classes.toolbarIcon}>
+                <IconButton onClick={props.handleDrawerClose}>
+                    <Icon>chevron_left</Icon>
+                </IconButton>
+            </div>
+            <Divider />
+            <List>
+                <div>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>dashboard</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Dashboard" />
+                    </ListItem>
+                </div>
+            </List>
+            <Divider />
+            <List>
+                <div>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>shoppingcart</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Orders" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>people</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Customers" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>bar_chart</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Reports" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>layers</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Integrations" />
+                    </ListItem>
+                </div>
+            </List>
+            <Divider />
+            <List>
+                <div>
+                    <ListSubheader inset>Saved reports</ListSubheader>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>assignment</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Current month" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>assignment</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Last quarter" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <Icon>assignment</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary="Year-end sale" />
+                    </ListItem>
+                </div>
+            </List>
+        </Drawer>
     );
-}
-
-export class CollapsableNavItem extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.toggle = this.toggle.bind(this);
-        this.state = { collapse: false };
-    }
-
-    toggle() {
-        this.setState(state => ({ collapse: !state.collapse }));
-    }
-
-    render() {
-        return (
-            <>
-                <Link className='nav-link' to='#' onClick={this.toggle}>
-                    <FontAwesomeIcon icon={this.props.icon} />
-                    <span>{this.props.title}</span>
-                </Link>
-                <Collapse in={this.state.collapse}>
-                    <div>
-                        {this.props.children}
-                    </div>
-                </Collapse>
-            </>
-        );
-    }
-}
-
-export function HeaderItem(props) {
-    return (
-        <div className='sidebar-heading'>
-            {props.title}
-        </div>
-    )
-}
-
-export function Separator(props) {
-    return (<hr className='sidebar-divider' />)
-}
-
-export function SidebarList(props) {
-    return (
-        <ul className='navbar-nav bg-gradient-primary sidebar sidebar-dark accordion' id='accordionSidebar'>
-            {props.children}
-        </ul>
-    )
 }
