@@ -3,16 +3,12 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
-import {
-    AppBar, Toolbar, IconButton, Icon, Typography, Button, Drawer,
-    Container, List, Divider, Grid, Badge, ListItem, ListItemIcon, ListSubheader, CssBaseline, ListItemText, Paper
-} from '@material-ui/core';
+import { Container, Grid, Paper } from '@material-ui/core';
 
 import Copyright from '../components/dashboard/copyright';
 import Topbar from '../components/dashboard/topbar';
 import Sidebar from '../components/dashboard/sidebar';
 
-const drawerWidth = 240;
 const styles = theme => ({
     root: {
         display: 'flex',
