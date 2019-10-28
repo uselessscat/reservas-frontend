@@ -10,10 +10,16 @@ import { Error404 } from '../views/errors';
 
 import Dashboard from '../views/dashboard/dashboard';
 
+import PersonsList from '../views/persons/persons-list';
+import NewPersons from '../views/persons/persons-new';
+
 const DashboardContentSelector = () => (
     <Switch>
         <PrivateRoute exact path={routes.root.path} component={Dashboard} />
         <PrivateRoute path={routes.dashboard.path} component={Dashboard} />
+
+        <PrivateRoute exact path={routes.persons.path} component={PersonsList} />
+        <PrivateRoute path={routes.personsNew.path} component={NewPersons} />
 
         <PrivateRoute component={Error404} />
     </Switch >
@@ -28,9 +34,7 @@ const ModuleRoutes = () => (
 export default ModuleRoutes;
 
 /**
- * 
-        <PrivateRoute exact path={routes.persons.path} component={PersonsList} />
-        <PrivateRoute path={routes.personsNew.path} component={NewPersons} />
+ *
 
         <PrivateRoute exact path={routes.branchOffices.path} component={BranchOffices} />
         <PrivateRoute path={routes.branchOfficesNew.path} component={NewBranchOffices} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-import { Drawer, IconButton, Divider, List, ListItem, ListItemIcon, Icon, ListItemText, ListSubheader } from '@material-ui/core';
+import { Drawer, IconButton, Divider, Icon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
