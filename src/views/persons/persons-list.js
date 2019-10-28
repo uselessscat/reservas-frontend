@@ -1,42 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { ButtonGroup, Button } from 'react-bootstrap';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
-import cellEditFactory from 'react-bootstrap-table2-editor';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import routes from '../../routing/routes';
 import ReservationsApi from '../../clases/api/reservations/reservations';
-
-import BasicCrud from '../../components/crud/basic-crud';
-
+import { Grid, Paper, IconButton, Icon } from '@material-ui/core';
 
 const columns = [
     {
         dataField: 'id',
         text: 'ID',
         sort: true,
-        filter: textFilter({
+        filter: {
             defaultValue: ''
-        }),
+        },
     },
     {
         dataField: 'name',
         text: 'Nombre',
         sort: true,
-        filter: textFilter({
+        filter: {
             defaultValue: ''
-        }),
+        },
     },
     {
         dataField: 'email',
         text: 'Email',
         sort: true,
-        filter: textFilter({
+        filter: {
             defaultValue: ''
-        }),
+        },
     },
     {
         dataField: 'actions',
@@ -46,62 +37,62 @@ const columns = [
 ];
 
 const defaultSorted = [{
-  dataField: 'id',
-  order: 'asc'
+    dataField: 'id',
+    order: 'asc'
 }];
 
 const cellEditProps = {
-  mode: 'click'
+    mode: 'click'
 };
 
 class PersonsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          pagination: {
-              per_page:25
-          },
-          data: [],
-          tableEvents: {
-              'pagination': this.handleTablePagination,
-              'cellEdit': this.handleTableCellEdit,
-              'sort': this.handleTableSort,
-              'filter': this.handleTableFilter,
-          }
+            pagination: {
+                per_page: 25
+            },
+            data: [],
+            tableEvents: {
+                'pagination': this.handleTablePagination,
+                'cellEdit': this.handleTableCellEdit,
+                'sort': this.handleTableSort,
+                'filter': this.handleTableFilter,
+            }
         };
-        
+
         this.handleTableChange = this.handleTableChange.bind(this);
     }
-    
+
     componentDidMount() {
         this.fireDataUpdate();
     }
-    
+
     handleTablePagination = (...params) => {
-        
-        console.log('function table pagination called', params);  
+
+        console.log('function table pagination called', params);
         this.setState({
-                pagination: {
-                    page: params.page,
-                    per_page:params.sizePerPage,
-                }
-            });
-            
+            pagination: {
+                page: params.page,
+                per_page: params.sizePerPage,
+            }
+        });
+
         this.fireDataUpdate();
     }
-    
+
     handleTableCellEdit = (...params) => {
-        console.log('function table cellEdit called', params);  
+        console.log('function table cellEdit called', params);
     };
-    
+
     handleTableSort = (...params) => {
-        console.log('function table cellEdit called', params);  
+        console.log('function table cellEdit called', params);
     };
-    
+
     handleTableFilter = (...params) => {
-        console.log('function table filter called', params);  
+        console.log('function table filter called', params);
     };
-    
+
     fireDataUpdate() {
         console.log('Updating data...');
 
@@ -111,13 +102,9 @@ class PersonsList extends React.Component {
 
             data.data.forEach(element => {
                 element.actions = (
-                    <>
-                    <ButtonGroup>
-                        <Button variant="outline-danger">
-                            <FontAwesomeIcon icon='trash' />
-                        </Button>
-                    </ButtonGroup>
-                    </>
+                    <IconButton>
+                        <Icon>trash</Icon>
+                    </IconButton>
                 )
             });
 
@@ -135,9 +122,18 @@ class PersonsList extends React.Component {
     }
 
     render() {
-       
+
         return (
-            <BasicCrud
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={8} lg={9}>
+                    <Paper>
+                        <div>Dashboard</div>
+                    </Paper>
+                </Grid>
+            </Grid >
+        );
+
+        /*  <BasicCrud
                 title='Personas'
                 newTitle='Ingresar persona'
                 newLink={routes.personsNew.path}
@@ -146,22 +142,21 @@ class PersonsList extends React.Component {
                     data: this.state.data,
                     defaultSorted: defaultSorted,
                     columns: columns,
-                    cellEdit:cellEditFactory(cellEditProps),
-                    filter:filterFactory(),
-                    pagination: paginationFactory({ 
+                    cellEdit: cellEditFactory(cellEditProps),
+                    filter: filterFactory(),
+                    pagination: paginationFactory({
                         page: this.state.pagination.page,
-                        sizePerPage: this.state.pagination.per_page, 
-                        totalSize: this.state.pagination.total, 
+                        sizePerPage: this.state.pagination.per_page,
+                        totalSize: this.state.pagination.total,
                     }),
                     onTableChange: this.handleTableChange
                 }}
-            />
-        );
+            /> */
     }
 
     handleTableChange = (type, { page, sizePerPage, filters, sortField, sortOrder, cellEdit }) => {
-        console.log("table change type" , type);
-        this.state.tableEvents[type]({page, sizePerPage, filters, sortField, sortOrder, cellEdit});
+        console.log("table change type", type);
+        this.state.tableEvents[type]({ page, sizePerPage, filters, sortField, sortOrder, cellEdit });
     }
 }
 
