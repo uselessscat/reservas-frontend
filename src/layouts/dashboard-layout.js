@@ -8,6 +8,7 @@ import { Container, Grid, Paper } from '@material-ui/core';
 import Copyright from '../components/dashboard/copyright';
 import Topbar from '../components/dashboard/topbar';
 import Sidebar from '../components/dashboard/sidebar';
+import SidebarContent from '../views/dashboard/sidebar-content';
 
 const styles = theme => ({
     root: {
@@ -22,16 +23,7 @@ const styles = theme => ({
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        height: 240,
-    },
+    }
 });
 
 
@@ -54,23 +46,18 @@ class DashboardLayout extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
         return (
             <div className={classes.root}>
                 <Topbar open={this.state.open} handleDrawerOpen={this.handleDrawerOpen} />
-                <Sidebar open={this.state.open} handleDrawerClose={this.handleDrawerClose} />
+                <Sidebar open={this.state.open} handleDrawerClose={this.handleDrawerClose}>
+                    <SidebarContent />
+                </Sidebar>
 
                 <main className={classes.content}>
                     <div className={classes.appBarSpacer} />
                     <Container maxWidth="lg" className={classes.container}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={8} lg={9}>
-                                <Paper className={fixedHeightPaper}>
-                                    {this.props.children}
-                                </Paper>
-                            </Grid>
-                        </Grid>
+                        {this.props.children}
                     </Container>
                     <Copyright />
                 </main>
