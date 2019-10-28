@@ -28,9 +28,6 @@ const routes = {
     },
     rolesNew: {
         path: '/roles/new'
-    },
-    services: {
-        path: '/services'
     }
 }
 
