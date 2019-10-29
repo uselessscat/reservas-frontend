@@ -22,7 +22,7 @@ const DashboardContentSelector = () => (
         <PrivateRoute path={routes.personsNew.path} component={NewPersons} />
 
         <PrivateRoute component={Error404} />
-    </Switch >
+    </Switch>
 );
 
 const ModuleRoutes = () => (

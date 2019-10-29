@@ -1,14 +1,16 @@
 import React from 'react';
-import routes from '../../routing/routes';
+import Link from 'react-router-dom/Link';
 
 import { List, ListItem, ListItemIcon, ListItemText, Icon, Divider, ListSubheader } from '@material-ui/core';
+
+import routes from '../../routing/routes';
 
 export default function SidebarContent() {
     return (
         <React.Fragment>
             <List>
                 <div>
-                    <ListItem button component='a' href={routes.dashboard.path}>
+                    <ListItem button component={Link} to={routes.dashboard.path}>
                         <ListItemIcon>
                             <Icon>dashboard</Icon>
                         </ListItemIcon>
@@ -19,47 +21,13 @@ export default function SidebarContent() {
             <Divider />
             <List>
                 <div>
-                    <ListItem button component='a' href={routes.persons.path}>
+                    <ListSubheader inset>Datos</ListSubheader>
+
+                    <ListItem button component={Link} to={routes.persons.path}>
                         <ListItemIcon>
                             <Icon>people</Icon>
                         </ListItemIcon>
                         <ListItemText primary='Personas' />
-                    </ListItem>
-                    <ListItem button >
-                        <ListItemIcon>
-                            <Icon>bar_chart</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary='Reports' />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <Icon>layers</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary='Integrations' />
-                    </ListItem>
-                </div>
-            </List>
-            <Divider />
-            <List>
-                <div>
-                    <ListSubheader inset>Saved reports</ListSubheader>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <Icon>assignment</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary='Current month' />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <Icon>assignment</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary='Last quarter' />
-                    </ListItem>
-                    <ListItem button>
-                        <ListItemIcon>
-                            <Icon>assignment</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary='Year-end sale' />
                     </ListItem>
                 </div>
             </List>

@@ -155,7 +155,7 @@ class PersonsList extends React.Component {
     }
 
     handleTableChange = (type, { page, sizePerPage, filters, sortField, sortOrder, cellEdit }) => {
-        console.log("table change type", type);
+        console.log('table change type', type);
         this.state.tableEvents[type]({ page, sizePerPage, filters, sortField, sortOrder, cellEdit });
     }
 }
