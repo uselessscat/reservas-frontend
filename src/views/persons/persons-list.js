@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
-import { Grid, Paper, IconButton, Icon } from '@material-ui/core';
+import { Grid, Paper, IconButton, Icon, TableBody, Table, TableCell, TableRow, TablePagination, TableFooter, TableHead, Typography } from '@material-ui/core';
 
 const columns = [
     {
@@ -125,9 +125,43 @@ class PersonsList extends React.Component {
 
         return (
             <Grid container spacing={3}>
-                <Grid item xs={12} md={8} lg={9}>
+                <Grid item lg={12}>
+                    <Typography variant='h4'>Personas</Typography>
+                </Grid>
+                <Grid item lg={12}>
                     <Paper>
-                        <div>Dashboard</div>
+                        <Table aria-label='custom pagination table'>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>ID</TableCell>
+                                    <TableCell>Nombre</TableCell>
+                                    <TableCell>Email</TableCell>
+                                    <TableCell>Accciones</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                <TableRow >
+                                    <TableCell component='th' scope='row'>A</TableCell>
+                                    <TableCell>B</TableCell>
+                                    <TableCell>C</TableCell>
+                                    <TableCell>D</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            </TableBody>
+                            <TableFooter>
+                                <TableRow>
+                                    <TablePagination
+                                        rowsPerPageOptions={[5, 10, 25]}
+                                        colSpan={3}
+                                        count={1000}
+                                        rowsPerPage={10}
+                                        page={1}
+                                    />
+                                </TableRow>
+                            </TableFooter>
+                        </Table>
                     </Paper>
                 </Grid>
             </Grid >
