@@ -39,7 +39,7 @@ export default function Topbar(props) {
     const classes = useStyles();
 
     return (
-        <AppBar position="absolute" className={clsx(classes.appBar, props.open && classes.appBarShift)}>
+        <AppBar position='absolute' className={clsx(classes.appBar, props.open && classes.appBarShift)}>
             <Toolbar className={classes.toolbar}>
                 <IconButton
                     edge="start"
@@ -54,6 +54,9 @@ export default function Topbar(props) {
                     <Badge badgeContent={4} color="secondary">
                         <Icon>notifications</Icon>
                     </Badge>
+                </IconButton>
+                <IconButton color='inherit'>
+                    <Icon>account_circle</Icon>
                 </IconButton>
             </Toolbar>
         </AppBar>
