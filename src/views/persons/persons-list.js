@@ -2,55 +2,32 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ReservationsApi from '../../clases/api/reservations/reservations';
-import { Grid, Paper, IconButton, Icon, TableBody, Table, TableCell, TableRow, TablePagination, TableFooter, TableHead, Typography, TableSortLabel } from '@material-ui/core';
-
-const columns = [
-    {
-        dataField: 'id',
-        text: 'ID',
-        sort: true,
-        filter: {
-            defaultValue: ''
-        },
-    },
-    {
-        dataField: 'name',
-        text: 'Nombre',
-        sort: true,
-        filter: {
-            defaultValue: ''
-        },
-    },
-    {
-        dataField: 'email',
-        text: 'Email',
-        sort: true,
-        filter: {
-            defaultValue: ''
-        },
-    },
-    {
-        dataField: 'actions',
-        text: 'Accciones',
-        sort: true
-    }
-];
-
-const defaultSorted = [{
-    dataField: 'id',
-    order: 'asc'
-}];
-
-const cellEditProps = {
-    mode: 'click'
-};
+import {
+    Grid,
+    Paper,
+    IconButton,
+    Icon,
+    TableBody,
+    Table,
+    TableCell,
+    TableRow,
+    TablePagination,
+    TableHead,
+    Typography,
+    TableSortLabel
+} from '@material-ui/core';
 
 class PersonsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             pagination: {
-                per_page: 25
+                per_page: 25,
+                page: 0,
+                from: 0,
+                to: 0,
+                pages: 0,
+                total: 0
             },
             data: [],
             tableEvents: {
@@ -69,8 +46,8 @@ class PersonsList extends React.Component {
     }
 
     handleTablePagination = (...params) => {
-
         console.log('function table pagination called', params);
+
         this.setState({
             pagination: {
                 page: params.page,
@@ -97,16 +74,7 @@ class PersonsList extends React.Component {
         console.log('Updating data...');
 
         ReservationsApi.Persons.list(this.state.pagination, response => {
-            console.log(response);
             const data = response.data;
-
-            data.data.forEach(element => {
-                element.actions = (
-                    <IconButton>
-                        <Icon>trash</Icon>
-                    </IconButton>
-                )
-            });
 
             this.setState({
                 data: data.data,
@@ -115,13 +83,34 @@ class PersonsList extends React.Component {
                     from: data.from,
                     to: data.to,
                     pages: data.last_page,
-                    total: data.total
+                    total: data.total,
+                    per_page: parseInt(data.per_page)
                 }
             })
         });
     }
 
     render() {
+        console.log(this.state.data);
+        const results = (this.state.data.length > 0) ?
+            this.state.data.map((element, index) => {
+                return (
+                    <TableRow key={index}>
+                        <TableCell component='th' scope='row'>{element.id}</TableCell>
+                        <TableCell>{element.name} {element.last_name}</TableCell>
+                        <TableCell>{element.email}</TableCell>
+                        <TableCell>
+                            <IconButton>
+                                <Icon>delete</Icon>
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                )
+            }) : (
+                <TableRow>
+                    <TableCell colSpan={4} align='center'>Sin datos</TableCell>
+                </TableRow>
+            );
 
         return (
             <Grid container spacing={3}>
@@ -149,15 +138,7 @@ class PersonsList extends React.Component {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow >
-                                        <TableCell component='th' scope='row'>A</TableCell>
-                                        <TableCell>B</TableCell>
-                                        <TableCell>C</TableCell>
-                                        <TableCell>D</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell colSpan={4} align='center'>Sin datos</TableCell>
-                                    </TableRow>
+                                    {results}
                                 </TableBody>
                             </Table>
                         </div>
@@ -165,38 +146,17 @@ class PersonsList extends React.Component {
                             component='div'
                             rowsPerPageOptions={[5, 10, 25]}
                             colSpan={3}
-                            count={1000}
-                            rowsPerPage={10}
-                            page={1}
+                            count={this.state.pagination.total}
+                            rowsPerPage={this.state.pagination.per_page}
+                            page={this.state.pagination.page - 1}
                         />
                     </Paper>
                 </Grid>
             </Grid >
         );
-
-        /*  <BasicCrud
-                title='Personas'
-                newTitle='Ingresar persona'
-                newLink={routes.personsNew.path}
-                table={{
-                    keyField: 'id',
-                    data: this.state.data,
-                    defaultSorted: defaultSorted,
-                    columns: columns,
-                    cellEdit: cellEditFactory(cellEditProps),
-                    filter: filterFactory(),
-                    pagination: paginationFactory({
-                        page: this.state.pagination.page,
-                        sizePerPage: this.state.pagination.per_page,
-                        totalSize: this.state.pagination.total,
-                    }),
-                    onTableChange: this.handleTableChange
-                }}
-            /> */
     }
 
     handleTableChange = (type, { page, sizePerPage, filters, sortField, sortOrder, cellEdit }) => {
-        console.log('table change type', type);
         this.state.tableEvents[type]({ page, sizePerPage, filters, sortField, sortOrder, cellEdit });
     }
 }
