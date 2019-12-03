@@ -20,59 +20,20 @@ import {
 class PersonsList extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             pagination: {
-                per_page: 25,
-                page: 0,
-                from: 0,
-                to: 0,
-                pages: 0,
-                total: 0
+                per_page: 25
             },
-            data: [],
-            tableEvents: {
-                'pagination': this.handleTablePagination,
-                'cellEdit': this.handleTableCellEdit,
-                'sort': this.handleTableSort,
-                'filter': this.handleTableFilter,
-            }
+            data: []
         };
-
-        this.handleTableChange = this.handleTableChange.bind(this);
     }
 
     componentDidMount() {
         this.fireDataUpdate();
     }
 
-    handleTablePagination = (...params) => {
-        console.log('function table pagination called', params);
-
-        this.setState({
-            pagination: {
-                page: params.page,
-                per_page: params.sizePerPage,
-            }
-        });
-
-        this.fireDataUpdate();
-    }
-
-    handleTableCellEdit = (...params) => {
-        console.log('function table cellEdit called', params);
-    };
-
-    handleTableSort = (...params) => {
-        console.log('function table cellEdit called', params);
-    };
-
-    handleTableFilter = (...params) => {
-        console.log('function table filter called', params);
-    };
-
     fireDataUpdate() {
-        console.log('Updating data...');
-
         ReservationsApi.Persons.list(this.state.pagination, response => {
             const data = response.data;
 
@@ -90,8 +51,32 @@ class PersonsList extends React.Component {
         });
     }
 
+    handleChangePage = (event, newPage) => {
+        this.setState((state, props) => {
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    page: newPage
+                }
+            }
+        }, () => this.fireDataUpdate());
+    }
+
+    handleChangeRowsPerPage = event => {
+        this.setState((state, props) => {
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    page: 0,
+                    per_page: parseInt(event.target.value, 10)
+                }
+            }
+        }, () => this.fireDataUpdate());
+    };
+
     render() {
-        console.log(this.state.data);
         const results = (this.state.data.length > 0) ?
             this.state.data.map((element, index) => {
                 return (
@@ -146,18 +131,16 @@ class PersonsList extends React.Component {
                             component='div'
                             rowsPerPageOptions={[5, 10, 25]}
                             colSpan={3}
-                            count={this.state.pagination.total}
+                            count={this.state.pagination.total || 0}
                             rowsPerPage={this.state.pagination.per_page}
-                            page={this.state.pagination.page - 1}
+                            page={this.state.pagination.page || 0}
+                            onChangePage={this.handleChangePage}
+                            onChangeRowsPerPage={this.handleChangeRowsPerPage}
                         />
                     </Paper>
                 </Grid>
             </Grid >
         );
-    }
-
-    handleTableChange = (type, { page, sizePerPage, filters, sortField, sortOrder, cellEdit }) => {
-        this.state.tableEvents[type]({ page, sizePerPage, filters, sortField, sortOrder, cellEdit });
     }
 }
 
