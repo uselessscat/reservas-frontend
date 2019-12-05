@@ -1,21 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router-dom';
+import routes from '../../routing/routes';
+
 import ReservationsApi from '../../clases/api/reservations/reservations';
 import {
+    Button,
     Grid,
-    Paper,
-    IconButton,
     Icon,
-    TableBody,
+    IconButton,
+    Paper,
     Table,
+    TableBody,
     TableCell,
-    TableRow,
-    TablePagination,
     TableHead,
-    Typography,
-    TableSortLabel
+    TablePagination,
+    TableRow,
+    TableSortLabel,
+    Typography
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    addPerson: {
+        marginLeft: "auto",
+        marginRight: theme.spacing(-2)
+    },
+});
 
 class PersonsList extends React.Component {
     constructor(props) {
@@ -77,6 +89,8 @@ class PersonsList extends React.Component {
     };
 
     render() {
+        const { classes } = this.props;
+
         const results = (this.state.data.length > 0) ?
             this.state.data.map((element, index) => {
                 return (
@@ -99,8 +113,13 @@ class PersonsList extends React.Component {
 
         return (
             <Grid container spacing={3}>
-                <Grid item lg={12}>
-                    <Typography variant='h4'>Personas</Typography>
+                <Grid item container spacing={2} lg={12}>
+                    <Grid item>
+                        <Typography variant='h4'>Personas</Typography>
+                    </Grid>
+                    <Grid item className={classes.addPerson} >
+                        <Button variant="contained" color="primary" component={Link} to={routes.personsNew.path}>Añadir persona</Button>
+                    </Grid>
                 </Grid>
                 <Grid item lg={12}>
                     <Paper>
@@ -154,4 +173,6 @@ const mapDispatchToProps = dispatch => {
     return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonsList);
+export default connect(mapStateToProps, mapDispatchToProps)(
+    withStyles(styles)(PersonsList)
+);
