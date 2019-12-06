@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import {
-    Grid,
-    Typography,
+    Box,
     Button,
+    Grid,
     Paper,
-    Box
+    TextField,
+    Typography
 } from '@material-ui/core';
 
 import routes from '../../routing/routes';
@@ -89,23 +90,17 @@ class NewPersons extends React.Component {
                             <Grid item>
                                 <form onSubmit={this.handleSubmit} >
                                     <Grid container spacing={2}>
-                                        <Grid item>
-                                            <label htmlFor='name'>Nombre</label>
-                                            <input type='name' className='form-control' id='name' name='name'
-                                                value={this.state.person.name} onChange={this.handleChange} />
+                                        <Grid item xs={12} sm={4}>
+                                            <TextField id="name" name="name" label="Nombre" value={this.state.person.name} onChange={this.handleChange} required fullWidth />
                                         </Grid>
-                                        <Grid item>
-                                            <label htmlFor='last_name'>Apellido</label>
-                                            <input type='last_name' className='form-control' id='last_name' name='last_name'
-                                                value={this.state.person.last_name} onChange={this.handleChange} />
+                                        <Grid item xs={12} sm={4}>
+                                            <TextField id="last_name" name="last_name" label="Apellido" value={this.state.person.last_name} onChange={this.handleChange} required fullWidth />
                                         </Grid>
-                                        <Grid item>
-                                            <label htmlFor='email'>Email</label>
-                                            <input type='email' className='form-control' id='email' name='email'
-                                                value={this.state.person.email} onChange={this.handleChange} />
+                                        <Grid item xs={12} sm={4}>
+                                            <TextField id="email" name="email" label="Correo electrónico" value={this.state.person.email} onChange={this.handleChange} required fullWidth />
                                         </Grid>
                                     </Grid>
-                                    <Grid container>
+                                    <Grid container spacing={2}>
                                         <Grid item>
                                             <Button variant="contained" color="primary" component={Link} to={routes.persons.path}>Volver</Button>
                                         </Grid>
