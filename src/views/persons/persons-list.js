@@ -69,7 +69,7 @@ class PersonsList extends React.Component {
                 ...state,
                 pagination: {
                     ...state.pagination,
-                    page: newPage + 1
+                    page: newPage
                 }
             }
         }, () => this.fireDataUpdate());
@@ -81,7 +81,7 @@ class PersonsList extends React.Component {
                 ...state,
                 pagination: {
                     ...state.pagination,
-                    page: 1,
+                    page: 0,
                     per_page: parseInt(event.target.value, 10)
                 }
             }
@@ -99,6 +99,9 @@ class PersonsList extends React.Component {
                         <TableCell>{element.name} {element.last_name}</TableCell>
                         <TableCell>{element.email}</TableCell>
                         <TableCell>
+                            <IconButton>
+                                <Icon>edit</Icon>
+                            </IconButton>
                             <IconButton>
                                 <Icon>delete</Icon>
                             </IconButton>
@@ -152,7 +155,7 @@ class PersonsList extends React.Component {
                             colSpan={3}
                             count={this.state.pagination.total || 0}
                             rowsPerPage={this.state.pagination.per_page}
-                            page={this.state.pagination.page - 1 || 0}
+                            page={this.state.pagination.page || 0}
                             onChangePage={this.handleChangePage}
                             onChangeRowsPerPage={this.handleChangeRowsPerPage} />
                     </Paper>
